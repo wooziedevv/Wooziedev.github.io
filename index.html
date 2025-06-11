@@ -3,63 +3,139 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Wooziedev - Kişisel Site</title>
+  <title>Wooziedev - Kişisel Web Sitesi</title>
   <style>
+    /* Temel stil */
     body {
-      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #121212;
-      color: #e0e0e0;
-      padding: 20px;
-      max-width: 600px;
-      margin: auto;
-      line-height: 1.6;
+      color: #eee;
+      overflow-x: hidden;
     }
-    h1 {
-      color: #61dafb;
-    }
-    a {
-      color: #61dafb;
-      text-decoration: none;
-      background: #222;
-      padding: 6px 12px;
-      border-radius: 4px;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      display: inline-block;
-      margin-bottom: 6px;
-    }
-    a:hover {
-      background-color: #61dafb;
-      color: #121212;
-      text-decoration: none;
-    }
-    ul {
-      padding-left: 20px;
-    }
-    footer {
-      margin-top: 40px;
-      font-size: 0.8rem;
-      color: #666;
+
+    header {
+      background: #1f1f1f;
+      padding: 2rem;
       text-align: center;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin: 0;
+      color: #00ffc8;
+      opacity: 0;
+      animation: fadeIn 1.5s forwards;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+      opacity: 0;
+      animation: fadeIn 1.5s 1s forwards;
+      color: #99ffea;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+
+    section {
+      margin-bottom: 4rem;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: slideUp 1s forwards;
+    }
+
+    section:nth-child(1) { animation-delay: 1.7s; }
+    section:nth-child(2) { animation-delay: 2s; }
+    section:nth-child(3) { animation-delay: 2.3s; }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      border-left: 6px solid #00ffc8;
+      padding-left: 0.5rem;
+    }
+
+    p {
+      line-height: 1.6;
+      color: #ccc;
+    }
+
+    /* Instagram galeri */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 15px;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      filter: brightness(0.9);
+    }
+    .gallery img:hover {
+      transform: scale(1.1);
+      filter: brightness(1);
+    }
+
+    /* Animasyonlar */
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media(max-width: 600px) {
+      header h1 {
+        font-size: 2.2rem;
+      }
+      h2 {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
+
+<header>
   <h1>Wooziedev</h1>
-  <p>Merhaba! Ben Ata Gökce, Ankara'da yaşıyorum 20 yaşındayun makine mühendisi ve PUBG Mobile oyuncusuyum. Kod yazmayı ve müzik yapmayı seviyorum. 10 Yıldır Sanal ortamda birçok alanda bulundum. Bunlar;Bot Kodlaması,Oyun Sunucusu(fivem),Yayıncılık,Web Site Tasarımı ve Yapımı,Kıyafet Paketi Tasarımı,Oyun Koçluğu. Gibi alanlarda Kendimi Geliştirdim ve Çalıştım Gelirimi Buralardan Sağladım 2018'de NaVi E-Sports'da onadım Lakin Hem Evime Uzak Kalmam Hem Mental Düşüşler Sebebi İle Ayrıldım Burdaki başarılarım Sonrasında Türkiyedeki
-	Takımlardan Teklifler Aldım Lakin Yayıncılığa Focuslanmak İsediğim İçin Geri Çevirdim 2 Yıl Twict,NimoTv,Ve Tiktok'da yayınlar yaptım Özel Hayatımda Gerçekleşen Durumlar Sebebi İle orayıda Bırakmak Zorunda Kaldım Pubg Mobile'a ara verdim (2023)Kadar Geri Döndüm Lakin Eskisi Gibi Ne Profesyonel Alana Nede Yayıncılığa Eski Ekibim Dağıldı Klanım Dağıldı Kendimi Yeni Bir Ekip Bulup Onlarla Devam Ettim Ara Ara Turnuva Ve Scrimlere Ve yayınlara devam ettim ve Ediyorum İşte Ben Ata(Woozie) Bu Benim Hayatım.</p>
-  <h2>İlgi Alanlarım</h2>
-  <ul>
-    <li>🎮 PUBG Mobile & E-spor</li>
-    <li>🔧 Makine Mühendisliği</li>
-    <li>🎵 Müzik ve şarkı sözü yazarlığı</li>
-    <li>💻 Yazılım ve Web Geliştirme</li>
-  </ul>
-  <h2>Sosyal Medya</h2>
-  <ul style="list-style:none; padding-left: 0;">
-    <li><a href="https://instagram.com/wooziedev" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-    <li><a href="https://github.com/wooziedevv" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-    <li><a href="https://x.com/wooziedev" target="_blank" rel="noopener noreferrer">Twitter</a></li>
-  </ul>
-  <footer>&copy; 2025 Wooziedev</footer>
+  <p>Makine Mühendisi & PUBG Mobile E-Spor Oyuncusu</p>
+</header>
+
+<main>
+  <section>
+    <h2>Hakkımda</h2>
+    <p>Merhaba! Ben Ata Gökce, 20 yaşındayım ve Ankara'da yaşıyorum. Makine mühendisliği öğrencisiyim ve aynı zamanda PUBG Mobile e-spor takımında oyuncuyum. Teknoloji ve oyun tutkumla hem kariyerimde hem de hobilerimde en iyisini hedefliyorum.</p>
+  </section>
+
+  <section>
+    <h2>Yetenekler</h2>
+    <p>Programlama, oyun stratejisi, takım çalışması ve hızlı karar verme becerilerimle hem mühendislik alanında hem de e-spor sahnesinde fark yaratıyorum.</p>
+  </section>
+
+  <section>
+    <h2>Instagram Galerim</h2>
+    <div class="gallery">
+      <img src="https://instagram.fist1-1.fna.fbcdn.net/v/t51.2885-15/e35/123456789_1234567890123456_1234567890123456789_n.jpg?_nc_ht=instagram.fist1-1.fna.fbcdn.net&_nc_cat=111&_nc_ohc=abc123xyz&_nc_tp=18&oh=abcd1234efgh5678ijkl&oe=60B2C3A4" alt="Fotoğraf 1" />
+      <img src="https://instagram.fist1-1.fna.fbcdn.net/v/t51.2885-15/e35/987654321_9876543210987654_9876543210987654321_n.jpg?_nc_ht=instagram.fist1-1.fna.fbcdn.net&_nc_cat=222&_nc_ohc=zyx987abc&_nc_tp=18&oh=dcba4321hgfe8765lkji&oe=60B2D3A5" alt="Fotoğraf 2" />
+      <img src="https://instagram.fist1-1.fna.fbcdn.net/v/t51.2885-15/e35/135792468_1357924680135792_1357924680135792468_n.jpg?_nc_ht=instagram.fist1-1.fna.fbcdn.net&_nc_cat=333&_nc_ohc=lmn456opq&_nc_tp=18&oh=mnop5678qrst1234uvwx&oe=60B2E3B6" alt="Fotoğraf 3" />
+      <img src="https://instagram.fist1-1.fna.fbcdn.net/v/t51.2885-15/e35/246813579_2468135790246813_2468135790246813579_n.jpg?_nc_ht=instagram.fist1-1.fna.fbcdn.net&_nc_cat=444&_nc_ohc=def789ghi&_nc_tp=18&oh=qrst1234uvwx5678yzab&oe=60B2F3C7" alt="Fotoğraf 4" />
+    </div>
+  </section>
+</main>
+
 </body>
 </html>
