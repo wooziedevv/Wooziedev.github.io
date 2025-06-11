@@ -5,10 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Wooziedev - Kişisel Web Sitesi</title>
   <style>
-    
     :root {
-      --primary-color: #00b894; /* yeşil ton */
-      --background-color: #121212; /* koyu arka plan */
+      --primary-color: #00b894;
+      --background-color: #121212;
       --text-color: #eaeaea;
       --secondary-color: #2d3436;
       --hover-color: #55efc4;
@@ -34,7 +33,7 @@
       gap: 1rem;
     }
 
-    header img {
+    header img.logo {
       width: 60px;
       height: 60px;
       border-radius: 50%;
@@ -90,7 +89,6 @@
       color: #dfe6e9;
     }
 
-    /* Instagram galeri */
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -111,7 +109,6 @@
       box-shadow: 0 6px 20px rgba(0,0,0,0.7);
     }
 
-    /* Sosyal medya ikonları */
     .socials {
       display: flex;
       justify-content: center;
@@ -128,7 +125,6 @@
       color: var(--hover-color);
     }
 
-    /* Animasyonlar */
     @keyframes fadeIn {
       to { opacity: 1; }
     }
@@ -140,7 +136,6 @@
       }
     }
 
-    /* Responsive */
     @media(max-width: 600px) {
       header {
         flex-direction: column;
@@ -154,14 +149,12 @@
       }
     }
   </style>
-  <!-- FontAwesome CDN sosyal ikonlar için -->
   <script src="https://kit.fontawesome.com/0c502c9316.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
 <header>
-  <!-- Logo buraya: Logonu yollarsan buraya koyarım, şimdilik placeholder -->
-  <img src="https://avatars.githubusercontent.com/u/65337841?v=4" alt="Wooziedev Logo" />
+  <img src="https://r.resimlink.com/GwgBfeXrvC.jpeg" alt="Wooziedev Logo" class="logo" />
   <div>
     <h1>Wooziedev</h1>
     <p>Makine Mühendisi & PUBG Mobile E-Spor Oyuncusu</p>
@@ -180,12 +173,11 @@
   </section>
 
   <section>
-    <h2>Instagram Galerim</h2>
+    <h2>Galeri</h2>
     <div class="gallery">
-      <img src="https://instagram.fist1-1.fna.fbcdn.net/v/t51.2885-15/e35/362849477_1228594418535461_2396226183780325973_n.jpg?_nc_ht=instagram.fist1-1.fna.fbcdn.net&_nc_cat=111&_nc_ohc=Y8Wki6_JLzQAX8blFZ3&edm=ABfd0MgBAAAA&ccb=7-5&oh=00_AT8Co9GjCnpd5q91-vNZPZDeBfdxxnDR8B4_L0NFa3Rs1w&oe=649E3B2B&_nc_sid=7bff83" alt="Instagram Foto 1" />
-      <img src="https://instagram.fist1-1.fna.fbcdn.net/v/t51.2885-15/e35/364757739_243516669845053_7066644949216673416_n.jpg?_nc_ht=instagram.fist1-1.fna.fbcdn.net&_nc_cat=111&_nc_ohc=4FGxMaBtwk8AX9loz5Ls&edm=ABfd0MgBAAAA&ccb=7-5&oh=00_AT9l48jJxhvWy10m6pmPK-7K7H25AKQF1e_DU0PWhS1NcQ&oe=649E40AE&_nc_sid=7bff83" alt="Instagram Foto 2" />
-      <img src="https://instagram.fist1-1.fna.fbcdn.net/v/t51.2885-15/e35/362443399_1379940406708903_7280901406349390922_n.jpg?_nc_ht=instagram.fist1-1.fna.fbcdn.net&_nc_cat=111&_nc_ohc=J6PTZAxwhiEAX8yxQ0Tl&edm=ABfd0MgBAAAA&ccb=7-5&oh=00_AT9KJRx46Qi0mnCHtFpb2i-0XGB6iZr_94s4G4Mxt1gPyw&oe=649E3C4E&_nc_sid=7bff83" alt="Instagram Foto 3" />
-      <img src="https://instagram.fist1-1.fna.fbcdn.net/v/t51.2885-15/e35/362494862_1487541879273976_4232494686634407706_n.jpg?_nc_ht=instagram.fist1-1.fna.fbcdn.net&_nc_cat=111&_nc_ohc=tmAlP3Es5dQAX89yYxEo&edm=ABfd0MgBAAAA&ccb=7-5&oh=00_AT9B1n7c3_lA5RsI4PqpMyiU7LEqbrsyPPT4m6pjqSht7sw&oe=649E33D0&_nc_sid=7bff83" alt="Instagram Foto 4" />
+      <img src="https://r.resimlink.com/8mRBNdDCfeZ.jpeg" alt="Fotoğraf 1" />
+      <img src="https://r.resimlink.com/DjQCuoG.jpeg" alt="Fotoğraf 2" />
+      <img src="https://r.resimlink.com/Sy4T0UxoODva.jpeg" alt="Fotoğraf 3" />
     </div>
   </section>
 
@@ -200,4 +192,10 @@
       </a>
       <a href="https://instagram.com/wooziedev" target="_blank" rel="noopener" aria-label="Instagram">
         <i class="fab fa-instagram"></i>
-      </a
+      </a>
+    </div>
+  </section>
+</main>
+
+</body>
+</html>
