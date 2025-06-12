@@ -3,199 +3,114 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Wooziedev - Kişisel Web Sitesi</title>
+  <title>Wooziedev - Kişisel Site</title>
   <style>
-    :root {
-      --primary-color: #00b894;
-      --background-color: #121212;
-      --text-color: #eaeaea;
-      --secondary-color: #2d3436;
-      --hover-color: #55efc4;
-    }
-
     body {
       margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: var(--background-color);
-      color: var(--text-color);
-      overflow-x: hidden;
+      font-family: Arial, sans-serif;
+      background: #0d1117;
+      color: #c9d1d9;
     }
 
     header {
-      background: var(--secondary-color);
-      padding: 2rem;
-      text-align: center;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.7);
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
-      gap: 1rem;
+      background-color: #161b22;
+      padding: 10px 20px;
+      border-bottom: 1px solid #30363d;
     }
 
-    header img.logo {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      object-fit: cover;
-      opacity: 0;
-      animation: fadeIn 1.5s forwards;
+    .logo {
+      color: #f778ba;
+      font-weight: bold;
+      font-size: 1.2rem;
     }
 
-    header h1 {
-      font-size: 2.8rem;
-      margin: 0;
-      color: var(--primary-color);
-      opacity: 0;
-      animation: fadeIn 1.5s 0.3s forwards;
+    .title {
+      font-size: 1.3rem;
+      color: #c9d1d9;
     }
 
-    header p {
-      font-size: 1.1rem;
-      margin-top: 0.3rem;
-      opacity: 0;
-      animation: fadeIn 1.5s 0.7s forwards;
-      color: #b2bec3;
+    nav a {
+      margin-left: 20px;
+      color: #58a6ff;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
     }
 
     main {
-      max-width: 900px;
-      margin: 3rem auto;
-      padding: 0 1rem;
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
     }
-
-    section {
-      margin-bottom: 4rem;
-      opacity: 0;
-      transform: translateY(40px);
-      animation: slideUp 1s forwards;
-    }
-
-    section:nth-child(1) { animation-delay: 1.7s; }
-    section:nth-child(2) { animation-delay: 2s; }
-    section:nth-child(3) { animation-delay: 2.3s; }
-    section:nth-child(4) { animation-delay: 2.6s; }
 
     h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      border-left: 6px solid var(--primary-color);
-      padding-left: 0.5rem;
-      color: var(--primary-color);
+      color: #f778ba;
     }
 
-    p {
-      line-height: 1.6;
-      color: #dfe6e9;
+    ul {
+      list-style: none;
+      padding-left: 0;
     }
 
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 15px;
+    footer {
+      text-align: center;
+      margin: 40px 0 20px;
+      font-size: 0.8rem;
+      color: #8b949e;
     }
 
-    .gallery img {
-      width: 100%;
-      border-radius: 10px;
-      transition: transform 0.3s ease, filter 0.3s ease;
-      cursor: pointer;
-      filter: brightness(0.85);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.4);
-    }
-    .gallery img:hover {
-      transform: scale(1.05);
-      filter: brightness(1);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.7);
-    }
-
-    .socials {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 2rem;
-    }
-    .socials a {
-      color: var(--primary-color);
-      font-size: 1.8rem;
-      transition: color 0.3s ease;
-      text-decoration: none;
-    }
-    .socials a:hover {
-      color: var(--hover-color);
-    }
-
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-
-    @keyframes slideUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @media(max-width: 600px) {
+    @media (max-width: 600px) {
       header {
         flex-direction: column;
-        gap: 0.5rem;
+        align-items: flex-start;
       }
-      header h1 {
-        font-size: 2rem;
-      }
-      h2 {
-        font-size: 1.6rem;
+      nav {
+        margin-top: 10px;
       }
     }
   </style>
-  <script src="https://kit.fontawesome.com/0c502c9316.js" crossorigin="anonymous"></script>
 </head>
 <body>
+  <header>
+    <div class="logo">WZ</div>
+    <div class="title">Wooziedev</div>
+    <nav>
+      <a href="#hakkimda">Hakkımda</a>
+      <a href="#projeler">Projeler</a>
+      <a href="#iletisim">İletişim</a>
+    </nav>
+  </header>
+  <main>
+    <section id="hakkimda">
+      <h2>Hakkımda</h2>
+      <p>Ben Ata Gökce. Ankara'da yaşıyorum. 20 yaşındayım, makine mühendisiyim ve PUBG Mobile e-spor oyuncusuyum.</p>
+    </section>
 
-<header>
-  <img src="https://r.resimlink.com/GwgBfeXrvC.jpeg" alt="Wooziedev Logo" class="logo" />
-  <div>
-    <h1>Wooziedev</h1>
-    <p>Makine Mühendisi & PUBG Mobile E-Spor Oyuncusu</p>
-  </div>
-</header>
+    <section id="projeler">
+      <h2>Projelerim</h2>
+      <ul>
+        <li>🎮 PUBG Turnuva Sistemleri</li>
+        <li>💻 Kişisel Web Siteleri</li>
+        <li>🎵 Şarkı sözleri ve müzik prodüksiyonu</li>
+      </ul>
+    </section>
 
-<main>
-  <section>
-    <h2>Hakkımda</h2>
-    <p>Merhaba! Ben Ata Gökce, 20 yaşındayım ve Ankara'da yaşıyorum. Makine mühendisliği öğrencisiyim ve aynı zamanda PUBG Mobile e-spor takımında oyuncuyum. Teknoloji ve oyun tutkumla hem kariyerimde hem de hobilerimde en iyisini hedefliyorum.</p>
-  </section>
-
-  <section>
-    <h2>Yetenekler</h2>
-    <p>Programlama, oyun stratejisi, takım çalışması ve hızlı karar verme becerilerimle hem mühendislik alanında hem de e-spor sahnesinde fark yaratıyorum.</p>
-  </section>
-
-  <section>
-    <h2>Galeri</h2>
-    <div class="gallery">
-      <img src="https://r.resimlink.com/8mRBNdDCfeZ.jpeg" alt="Fotoğraf 1" />
-      <img src="https://r.resimlink.com/DjQCuoG.jpeg" alt="Fotoğraf 2" />
-      <img src="https://r.resimlink.com/Sy4T0UxoODva.jpeg" alt="Fotoğraf 3" />
-    </div>
-  </section>
-
-  <section>
-    <h2>Sosyal Medya</h2>
-    <div class="socials">
-      <a href="https://www.tiktok.com/@wooziedev" target="_blank" rel="noopener" aria-label="TikTok">
-        <i class="fab fa-tiktok"></i>
-      </a>
-      <a href="https://twitter.com/wooziedev" target="_blank" rel="noopener" aria-label="Twitter">
-        <i class="fab fa-twitter"></i>
-      </a>
-      <a href="https://instagram.com/wooziedev" target="_blank" rel="noopener" aria-label="Instagram">
-        <i class="fab fa-instagram"></i>
-      </a>
-    </div>
-  </section>
-</main>
-
+    <section id="iletisim">
+      <h2>İletişim</h2>
+      <p>Sosyal medyada bana ulaşabilirsiniz:</p>
+      <ul>
+        <li><a href="https://instagram.com/wooziedev" target="_blank">Instagram</a></li>
+        <li><a href="https://github.com/wooziedev" target="_blank">GitHub</a></li>
+        <li><a href="https://twitter.com/wooziedev" target="_blank">Twitter</a></li>
+      </ul>
+    </section>
+  </main>
+  <footer>&copy; 2025 Wooziedev</footer>
 </body>
 </html>
