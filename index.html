@@ -29,6 +29,8 @@
   }
   header img.logo {
     height: 50px;
+    width: 50px;
+    object-fit: contain;
   }
   nav a {
     color: white;
@@ -89,10 +91,10 @@
   section.about img {
     max-width: 350px;
     border-radius: 8px;
+    flex-shrink: 0;
   }
   section.about div {
-    flex: 1;
-    min-width: 250px;
+    flex: 1 1 300px;
   }
   section.about h2 {
     margin-bottom: 15px;
@@ -106,6 +108,13 @@
     list-style: inside disc;
     margin-top: 15px;
     color: #444;
+  }
+  section#contact {
+    margin-top: 50px;
+  }
+  section#contact h2 {
+    color: #0b2f5a;
+    margin-bottom: 20px;
   }
   footer {
     text-align: center;
@@ -128,12 +137,13 @@
     }
     section.about img {
       max-width: 100%;
+      margin-bottom: 20px;
     }
   }
-  /* Basit form stil (iletişim sayfası için) */
+  /* Basit form stil */
   form {
     max-width: 600px;
-    margin: 30px auto;
+    margin: 0 auto 60px auto;
     background: white;
     padding: 20px;
     border-radius: 8px;
@@ -165,7 +175,6 @@
     background: #ffcc00;
     color: #000;
   }
-  /* Basit nav aktif */
   nav a.active {
     color: #ffcc00;
   }
@@ -174,7 +183,7 @@
 <body>
 
 <header>
-  <img src="https://r.resimlink.com/GwgBfeXrvC.jpeg" alt="Logo" class="logo" />
+  <img src="wz-logo.svg" alt="Logo" class="logo" />
   <nav>
     <a href="#home" class="active">Ana Sayfa</a>
     <a href="#about">Hakkımda</a>
@@ -209,11 +218,11 @@
 
   <section id="contact">
     <h2>İletişim</h2>
-    <form>
+    <form action="https://formspree.io/f/mnqrlvvl" method="POST">
       <label for="name">Adınız</label>
       <input type="text" id="name" name="name" placeholder="Adınızı girin" required />
       <label for="email">E-posta</label>
-      <input type="email" id="email" name="email" placeholder="E-posta adresinizi girin" required />
+      <input type="email" id="email" name="_replyto" placeholder="E-posta adresinizi girin" required />
       <label for="message">Mesajınız</label>
       <textarea id="message" name="message" rows="5" placeholder="Mesajınızı yazın" required></textarea>
       <button type="submit">Gönder</button>
@@ -227,18 +236,4 @@
 </footer>
 
 <script>
-  // Basit sayfa içi link ve aktif menü değişimi
-  const navLinks = document.querySelectorAll('nav a');
-  navLinks.forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      navLinks.forEach(a => a.classList.remove('active'));
-      link.classList.add('active');
-      const id = link.getAttribute('href').substring(1);
-      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-    });
-  });
-</script>
-
-</body>
-</html>
+  // Basit sayfa
