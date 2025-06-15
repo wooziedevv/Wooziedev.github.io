@@ -1,161 +1,154 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emre Baş - Koçluk ve Motivasyon</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Roboto', Arial, sans-serif;
-        }
-        body {
-            background-color: #1a1a1a;
-            color: #fff;
-        }
-        header {
-            background-color: #111;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-        }
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #e74c3c;
-        }
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-        }
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1rem;
-            transition: color 0.3s;
-        }
-        nav ul li a:hover {
-            color: #e74c3c;
-        }
-        .hero {
-            height: 100vh;
-            background: url('https://via.placeholder.com/1920x1080?text=Hero+Image') no-repeat center/cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-        .hero-content {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 2rem;
-            border-radius: 10px;
-        }
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-        }
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background-color: #e74c3c;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background 0.3s;
-        }
-        .cta-button:hover {
-            background-color: #c0392b;
-        }
-        .section {
-            max-width: 1200px;
-            margin: 4rem auto;
-            padding: 0 1rem;
-            text-align: center;
-        }
-        .section h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: #e74c3c;
-        }
-        .section p {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #ccc;
-        }
-        footer {
-            background-color: #111;
-            padding: 2rem;
-            text-align: center;
-        }
-        footer p {
-            font-size: 0.9rem;
-            color: #ccc;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>wooziedev</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #000;
+      color: #ffff;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .logo {
+      width: 60px;
+      height: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    nav a {
+      margin-left: 2rem;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+      color: #fff;
+    }
+
+    .hero {
+      height: 100vh;
+      background: url('https://r.resimlink.com/8mRBNdDCfeZ.jpeg') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 80px; /* header yüksekliği kadar boşluk */
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 1rem 2rem;
+      border-radius: 10px;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    section {
+      margin-bottom: 4rem;
+    }
+
+    .socials a {
+      margin: 0 1rem;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+
+    .socials a:hover {
+      color: #fff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid #333;
+      color: ##FFF
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">Emre Baş</div>
-            <ul>
-                <li><a href="#">Ana Sayfa</a></li>
-                <li><a href="#">Hakkımda</a></li>
-                <li><a href="#">Hizmetler</a></li>
-                <li><a href="#">İletişim</a></li>
-            </ul>
-        </nav>
-    </header>
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Emre Baş ile Hedeflerinize Ulaşın</h1>
-            <p>Profesyonel koçluk ve motivasyon hizmetleriyle hayatınıza yön verin.</p>
-            <a href="#contact" class="cta-button">Şimdi İletişime Geç</a>
-        </div>
+
+  <header>
+    <div class="logo" aria-label="W Logo">
+      <svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" >
+        <path d="M10 35 L20 5 L30 35 L40 5 L50 35" stroke="#fff" stroke-width="5" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <nav>
+      <a href="#home">Ana Sayfa</a>
+      <a href="#about">Hakkımda</a>
+      <a href="#contact">İletişim</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <h1>wooziedev</h1>
+  </section>
+
+  <main>
+    <section id="about">
+      <h2>Hakkımda</h2>
+      <p>Merhaba, ben Ata Göçke, yani bilinen adıyla WoozieDev. Mekanik mühendisiyim ama yazılım ve teknoloji benim asıl tutkum. Kendi e-spor takımı olan B2G/DEV E-Sports’u kurdum ve takım yönetimiyle aktif olarak ilgileniyorum.
+
+Futbolu ve teknolojiyi çok severim; bu iki alanı bir araya getiren projeler üzerinde çalışmayı çok seviyorum. Kod yazmak benim için sadece iş değil, aynı zamanda keyif aldığım bir sanat.
+
+Amacım, teknik bilgimi ve deneyimlerimi kullanarak hem yazılım hem de e-spor alanında yenilikçi işler yapmak ve takım ruhunu her zaman ön planda tutan bir lider olmak.
+</p>
+      <p>Programming is the art of turning coffee into code” — bu cümle benim için çok anlamlı, çünkü gerçekten de kod yazarken kahve olmazsa olmazımdır! </p>
     </section>
-    <section class="section">
-        <h2>Hakkımda</h2>
-        <p>Emre Baş, dövüş sanatları ve vücut geliştirme alanında başarılarıyla tanınan bir profesyonel koçtur. Yılların deneyimiyle, bireylerin hedeflerine ulaşmasına yardımcı olur.</p>
+
+    <section id="contact">
+      <h2>İletişim</h2>
+      <p>Sosyal medya üzerinden bana ulaşabilirsiniz:</p>
+      <div class="socials">
+        <a href="https://instagram.com/wooziedev" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://twitter.com/wooziedev" target="_blank" rel="noopener noreferrer">Twitter</a>
+        <a href="https://www.tiktok.com/@wooziedev" target="_blank" rel="noopener noreferrer">TikTok</a>
+      </div>
+      <p>E-posta: <a href="mailto:wooziedevs@gmail.com" style="color:#0ff;">wooziedevs@gmail.com</a></p>
     </section>
-    <section class="section">
-        <h2>Hizmetler</h2>
-        <p>Bireysel koçluk, grup eğitimleri, motivasyon seminerleri ve daha fazlası. Size özel çözümler sunuyoruz.</p>
-    </section>
-    <section class="contact" id="contact">
-        <h2>İletişim</h2>
-        <p>Bizimle iletişime geçmek için aşağıdaki formu doldurun.</p>
-        <form action="#" method="contact-form">
-            <input type="text" placeholder="Adınız" required>
-            <input type="email" placeholder="E-posta" required>
-            <textarea placeholder="Mesajınız" required>
-</textarea>
-            <button type="submit" class="cta-button">Gönder</button>
-        </form>
-    </section>
-    <footer>
-        <p>&copy; 2025 yunusemrebas.com.tr - Tüm hakları saklıdır.</p>
-    </footer>
-    <script>
-        // Basit JS işlevleri
-        document.querySelector('form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Form gönderildi! Yakında size dönüş yapacağız.');
-        });
-    </script>
+  </main>
+
+  <footer>
+    &copy; 2025 wooziedev
+  </footer>
+
 </body>
 </html>
