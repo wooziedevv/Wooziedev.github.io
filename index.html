@@ -1,154 +1,219 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>wooziedev</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #000;
-      color: #ffff;
-    }
-
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background-color: rgba(0, 0, 0, 0.85);
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 999;
-    }
-
-    .logo {
-      width: 60px;
-      height: 40px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    nav a {
-      margin-left: 2rem;
-      text-decoration: none;
-      color: #fff;
-      font-weight: 500;
-      font-size: 1rem;
-      transition: color 0.3s ease;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-      color: #fff;
-    }
-
-    .hero {
-      height: 100vh;
-      background: url('https://r.resimlink.com/8mRBNdDCfeZ.jpeg') no-repeat center center/cover;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 2rem;
-      margin-top: 80px; /* header yüksekliği kadar boşluk */
-    }
-
-    .hero h1 {
-      font-size: 3rem;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 1rem 2rem;
-      border-radius: 10px;
-    }
-
-    main {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-      text-align: center;
-    }
-
-    section {
-      margin-bottom: 4rem;
-    }
-
-    .socials a {
-      margin: 0 1rem;
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1.1rem;
-      transition: color 0.3s ease;
-    }
-
-    .socials a:hover {
-      color: #fff;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      border-top: 1px solid #333;
-      color: ##FFF
-      font-size: 0.9rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WoozieDev - Fitness & Koçluk</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', Arial, sans-serif;
+        }
+        body {
+            color: white;
+            overflow-x: hidden;
+            background: #1a1a1a;
+        }
+        /* Arka plan videosu */
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .video-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        /* Navigasyon */
+        nav {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 1em;
+            position: fixed;
+            width: 100%;
+            z-index: 10;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1.5em;
+            font-size: 1.1em;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ff4500;
+        }
+        /* Hero bölümü */
+        .hero {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 10em 2em;
+            background: rgba(0, 0, 0, 0.6);
+        }
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 0.5em;
+        }
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 1.5em;
+        }
+        .btn {
+            display: inline-block;
+            padding: 1em 2em;
+            background: #ff4500;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #e03e00;
+        }
+        /* Bölümler */
+        .section {
+            padding: 4em 2em;
+            text-align: center;
+            background: #1a1a1a;
+        }
+        .section h2 {
+            font-size: 2.5em;
+            margin-bottom: 1em;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2em;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .product-card {
+            background: #2a2a2a;
+            padding: 1em;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+        .product-card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .product-card h3 {
+            margin: 0.5em 0;
+        }
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+        /* İletişim formu */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+        }
+        .contact-form input, .contact-form textarea {
+            padding: 0.8em;
+            border: none;
+            border-radius: 5px;
+            background: #333;
+            color: white;
+        }
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        /* Mobil uyumluluk */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+            .hero {
+                padding: 6em 1em;
+            }
+            nav a {
+                margin: 0 0.5em;
+                font-size: 1em;
+            }
+            .section {
+                padding: 2em 1em;
+            }
+        }
+    </style>
 </head>
 <body>
-
-  <header>
-    <div class="logo" aria-label="W Logo">
-      <svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" >
-        <path d="M10 35 L20 5 L30 35 L40 5 L50 35" stroke="#fff" stroke-width="5" stroke-linejoin="round"/>
-      </svg>
+    <!-- Arka plan videosu -->
+    <div class="video-bg">
+        <video autoplay muted loop playsinline>
+            <source src="videos/fitness-background.mp4" type="video/mp4">
+            Tarayıcınız videoyu desteklemiyor.
+        </video>
     </div>
+
+    <!-- Navigasyon -->
     <nav>
-      <a href="#home">Ana Sayfa</a>
-      <a href="#about">Hakkımda</a>
-      <a href="#contact">İletişim</a>
+        <a href="#home">Ana Sayfa</a>
+        <a href="#products">Ürünler</a>
+        <a href="#about">Hakkımda</a>
+        <a href="#success">Değişimler</a>
+        <a href="#contact">İletişim</a>
     </nav>
-  </header>
 
-  <section class="hero" id="home">
-    <h1>wooziedev</h1>
-  </section>
+    <!-- Hero bölümü -->
+    <div class="hero" id="home">
+        <h1>WoozieDev ile Zirveye Ulaş!</h1>
+        <p>Özel koçluk programları ve premium spor giyim ile hedeflerine ulaş.</p>
+        <a href="#contact" class="btn">Hemen Başla</a>
+    </div>
 
-  <main>
-    <section id="about">
-      <h2>Hakkımda</h2>
-      <p>Merhaba, ben Ata Göçke, yani bilinen adıyla WoozieDev. Mekanik mühendisiyim ama yazılım ve teknoloji benim asıl tutkum. Kendi e-spor takımı olan B2G/DEV E-Sports’u kurdum ve takım yönetimiyle aktif olarak ilgileniyorum.
+    <!-- Ürünler -->
+    <div class="section" id="products">
+        <h2>Ürünler</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="https://via.placeholder.com/250" alt="Ürün 1">
+                <h3>Spor Tişört</h3>
+                <p>Konforlu ve şık spor tişört.</p>
+                <a href="#" class="btn">Satın Al</a>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/250" alt="Ürün 2">
+                <h3>Spor Şort</h3>
+                <p>Hafif ve esnek spor şort.</p>
+                <a href="#" class="btn">Satın Al</a>
+            </div>
+        </div>
+    </div>
 
-Futbolu ve teknolojiyi çok severim; bu iki alanı bir araya getiren projeler üzerinde çalışmayı çok seviyorum. Kod yazmak benim için sadece iş değil, aynı zamanda keyif aldığım bir sanat.
+    <!-- Hakkımda -->
+    <div class="section" id="about">
+        <h2>Hakkımda</h2>
+        <p>Ben WoozieDev, fitness ve koçluk alanında uzmanım. Hedeflerinize ulaşmanız için buradayım!</p>
+    </div>
 
-Amacım, teknik bilgimi ve deneyimlerimi kullanarak hem yazılım hem de e-spor alanında yenilikçi işler yapmak ve takım ruhunu her zaman ön planda tutan bir lider olmak.
-</p>
-      <p>Programming is the art of turning coffee into code” — bu cümle benim için çok anlamlı, çünkü gerçekten de kod yazarken kahve olmazsa olmazımdır! </p>
-    </section>
+    <!-- Değişimler -->
+    <div class="section" id="success">
+        <h2>Değişim Hikayeleri</h2>
+        <p>Danışanlarımın başarı hikayelerini buradan keşfedin.</p>
+    </div>
 
-    <section id="contact">
-      <h2>İletişim</h2>
-      <p>Sosyal medya üzerinden bana ulaşabilirsiniz:</p>
-      <div class="socials">
-        <a href="https://instagram.com/wooziedev" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <a href="https://twitter.com/wooziedev" target="_blank" rel="noopener noreferrer">Twitter</a>
-        <a href="https://www.tiktok.com/@wooziedev" target="_blank" rel="noopener noreferrer">TikTok</a>
-      </div>
-      <p>E-posta: <a href="mailto:wooziedevs@gmail.com" style="color:#0ff;">wooziedevs@gmail.com</a></p>
-    </section>
-  </main>
-
-  <footer>
-    &copy; 2025 wooziedev
-  </footer>
-
+    <!-- İletişim -->
+    <div class="section" id="contact">
+        <h2>İletişim</h2>
+        <form class="contact-form" action="https://formspree.io/f/your-form-id" method="POST">
+            <input type="text" name="name" placeholder="Adınız" required>
+            <input type="email" name="email" placeholder="E-posta" required>
+            <textarea name="message" placeholder="Mesajınız" required></textarea>
+            <button type="submit" class="btn">Gönder</button>
+        </form>
+    </div>
 </body>
 </html>
