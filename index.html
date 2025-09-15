@@ -1,110 +1,188 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>WoozieDev - Üyelik Sistemi</title>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wooziedev</title>
+  <link rel="icon" href="https://i.hizliresim.com/sv3jcht.png" type="image/png">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color:#000; color:#fff; }
+    header { position:fixed; top:0; width:100%; background-color:rgba(0,0,0,0.85); padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center; z-index:999; }
+    .logo { width:60px; height:40px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+    nav a { margin-left:2rem; text-decoration:none; color:#fff; font-weight:500; font-size:1rem; transition:color 0.3s ease; }
+    nav a:hover { text-decoration:underline; }
+    .hero { height:100vh; background:url('https://r.resimlink.com/8mRBNdDCfeZ.jpeg') no-repeat center center/cover; display:flex; align-items:center; justify-content:center; text-align:center; padding:2rem; margin-top:80px; }
+    .hero h1 { font-size:3rem; background:rgba(0,0,0,0.6); padding:1rem 2rem; border-radius:10px; }
+    main { max-width:800px; margin:0 auto; padding:4rem 2rem; text-align:center; }
+    section { margin-bottom:4rem; }
+    .about-section { position:relative; overflow:hidden; color:white; min-height:600px; }
+    .about-section video { position:absolute; top:0; left:0; min-width:100%; min-height:100%; z-index:-1; object-fit:cover; }
+    .about-content { position:relative; z-index:2; background-color:rgba(0,0,0,0.6); padding:2rem; border-radius:10px; }
+    .socials a { margin:0 1rem; color:#fff; text-decoration:none; font-weight:600; font-size:1.1rem; transition:color 0.3s ease; }
+    .socials a:hover { color:#0ff; }
+    footer { text-align:center; padding:2rem; border-top:1px solid #333; font-size:0.9rem; }
+    /* Auth UI */
+    #registerBox, #loginBox, #userBox { margin-top:30px; }
+    input { padding:0.5rem; margin:0.3rem 0; width:200px; }
+    button { padding:0.5rem 1rem; margin:0.5rem; cursor:pointer; }
+  </style>
 </head>
 <body>
-  <h1>WoozieDev Üyelik Sistemi</h1>
 
-  <!-- Register -->
-  <div id="registerBox">
-    <h3>Kayıt Ol</h3>
-    <input type="email" id="regEmail" placeholder="E-mail"><br>
-    <input type="password" id="regPassword" placeholder="Şifre"><br>
-    <button onclick="register()">Kayıt Ol</button>
-  </div>
-
-  <!-- Login -->
-  <div id="loginBox">
-    <h3>Giriş Yap</h3>
-    <input type="email" id="loginEmail" placeholder="E-mail"><br>
-    <input type="password" id="loginPassword" placeholder="Şifre"><br>
-    <button onclick="login()">Giriş</button>
-    <button onclick="resetPassword()">Şifremi Unuttum</button>
-  </div>
-
-  <!-- User Panel -->
-  <div id="userBox" style="display:none;">
-    <p>Hoşgeldin, <span id="userEmail"></span></p>
-    <button onclick="logout()">Çıkış Yap</button>
-
-    <!-- Sadece adminlere -->
-    <div id="adminPanel" style="display:none; margin-top:20px; border:1px solid #ccc; padding:10px;">
-      <h3>Admin Panel</h3>
-      <p>Kullanıcı yönetimi burada olacak.</p>
+  <header>
+    <div class="logo" aria-label="W Logo">
+      <svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 35 L20 5 L30 35 L40 5 L50 35" stroke="#fff" stroke-width="5" stroke-linejoin="round"/>
+      </svg>
     </div>
-  </div>
+    <nav>
+      <a href="#home">Ana Sayfa</a>
+      <a href="#about">Hakkımda</a>
+      <a href="#contact">İletişim</a>
+    </nav>
+  </header>
 
+  <section class="hero" id="home">
+    <h1>wooziedev</h1>
+  </section>
+
+  <main>
+    <section id="about" class="about-section">
+      <video autoplay muted loop playsinline>
+        <source src="https://cdn.streamable.com/video/mp4/f5/f55ocn.mp4" type="video/mp4">
+        Tarayıcın video etiketini desteklemiyor.
+      </video>
+      <div class="about-content">
+        <h2>Hakkımda</h2>
+        <p>Merhaba, ben Ata Göçke, yani bilinen adıyla WoozieDev. Mekanik mühendisiyim ama yazılım ve teknoloji benim asıl tutkum. Kendi e-spor takımı olan B2G/DEV E-Sports’u kurdum ve takım yönetimiyle aktif olarak ilgileniyorum.</p>
+        <p>Oyunları çok severim; bu ik alanı bir araya getiren projeler üzerinde çalışmayı çok seviyorum. Kod yazmak benim için sadece iş değil, aynı zamanda keyif aldığım bir sanat.</p>
+        <p>Pubg Mobile Oynuyorum 2019/2020'de Profesyonel Olarak NaVi'de Oynadım Daha Sonra İse Promlemlerden Dolayı Ayrıldım Bu Ayrılık Benim Oyundan Soğumama Sebep Oldu Daha Sonra Gelen Teklifleri Redettim.</p>
+        <p>2016'dan Beri Fivem İle İlgileniyorum Bu İlgi Benim Hem Yazılım Alanına Hem Oyunlara Olan İlgimi Artırdı,Bir Çok Sunucuya Sahiplik Yaptım Güzel İşler Başardım Hala'da Devam Ediyorum.</p>
+      </div>
+    </section>
+
+    <section id="auth">
+      <h2>Üyelik Sistemi</h2>
+
+      <div id="registerBox">
+        <h3>Kayıt Ol</h3>
+        <input type="email" id="regEmail" placeholder="E-mail"><br>
+        <input type="password" id="regPassword" placeholder="Şifre"><br>
+        <button onclick="register()">Kayıt Ol</button>
+      </div>
+
+      <div id="loginBox">
+        <h3>Giriş Yap</h3>
+        <input type="email" id="loginEmail" placeholder="E-mail"><br>
+        <input type="password" id="loginPassword" placeholder="Şifre"><br>
+        <button onclick="login()">Giriş</button>
+        <button onclick="resetPassword()">Şifremi Unuttum</button>
+      </div>
+
+      <div id="userBox" style="display:none;">
+        <p>Hoşgeldin, <span id="userEmail"></span></p>
+        <button onclick="logout()">Çıkış Yap</button>
+
+        <!-- Admin paneli -->
+        <div id="adminPanel" style="display:none; margin-top:20px; border:1px solid #ccc; padding:10px;">
+          <h3>Admin Panel</h3>
+          <p>Burada sadece adminlere özel rehberler veya içerikler olacak.</p>
+          <ul>
+            <li>PUBG Turnuva Taktikleri</li>
+            <li>Özel Discord Linki</li>
+            <li>Geliştirici Notları</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>İletişim</h2>
+      <p>Sosyal medya üzerinden bana ulaşabilirsiniz:</p>
+      <div class="socials">
+        <a href="https://instagram.com/wooziedev" target="_blank">Instagram</a>
+        <a href="https://twitter.com/wooziedev" target="_blank">Twitter</a>
+        <a href="https://www.tiktok.com/@wooziedev" target="_blank">TikTok</a>
+      </div>
+      <p>E-posta: <a href="mailto:wooziedevs@gmail.com" style="color:#fff;">wooziedevs@gmail.com</a></p>
+    </section>
+  </main>
+
+  <footer>
+    &copy; © 2025 WoozieDev. Kopyalarsan mezara kadar takip ederim aq.
+  </footer>
+
+  <!-- Firebase -->
   <script type="module">
-    // 🔹 Firebase ayarlarını buraya yapıştır
-    const firebaseConfig = {
-      apiKey: "FIREBASE_API_KEY",
-      authDomain: "FIREBASE_PROJECT.firebaseapp.com",
-      projectId: "FIREBASE_PROJECT",
-      storageBucket: "FIREBASE_PROJECT.appspot.com",
-      messagingSenderId: "SENDER_ID",
-      appId: "APP_ID"
-    };
-
-    // Başlat
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBRWCBCSNCLv2Mgz-8OAxTE_hHTcDPW9tE",
+      authDomain: "wooziedevsite.firebaseapp.com",
+      projectId: "wooziedevsite",
+      storageBucket: "wooziedevsite.firebasestorage.app",
+      messagingSenderId: "181692137747",
+      appId: "1:181692137747:web:f773cfb5d4db225e70dae6",
+      measurementId: "G-MN27FH3XCQ"
+    };
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    const db = getFirestore(app);
 
-    // Register
-    window.register = () => {
+    window.register = async () => {
       const email = document.getElementById("regEmail").value;
       const password = document.getElementById("regPassword").value;
-      createUserWithEmailAndPassword(auth, email, password)
-        .then(() => alert("Kayıt başarılı!"))
-        .catch(err => alert(err.message));
+      if (!email || !password) return alert("Email ve şifre girin.");
+      try {
+        const cred = await createUserWithEmailAndPassword(auth, email, password);
+        await setDoc(doc(db, "users", cred.user.uid), {
+          email: email,
+          createdAt: new Date().toISOString()
+        });
+        alert("Kayıt başarılı!");
+      } catch(e){ alert(e.message); }
     };
 
-    // Login
-    window.login = () => {
+    window.login = async () => {
       const email = document.getElementById("loginEmail").value;
       const password = document.getElementById("loginPassword").value;
-      signInWithEmailAndPassword(auth, email, password)
-        .catch(err => alert(err.message));
+      try { await signInWithEmailAndPassword(auth,email,password); }
+      catch(e){ alert(e.message); }
     };
 
-    // Logout
-    window.logout = () => {
-      signOut(auth);
-    };
+    window.logout = () => signOut(auth);
 
-    // Reset Password
     window.resetPassword = () => {
       const email = document.getElementById("loginEmail").value;
-      if (!email) return alert("Email gir!");
-      sendPasswordResetEmail(auth, email)
-        .then(() => alert("Şifre yenileme maili gönderildi!"))
-        .catch(err => alert(err.message));
+      if (!email) return alert("Email giriniz.");
+      sendPasswordResetEmail(auth,email)
+        .then(()=>alert("Şifre yenileme maili gönderildi."))
+        .catch(err=>alert(err.message));
     };
 
-    // Kullanıcı durumunu izle
-    onAuthStateChanged(auth, user => {
-      if (user) {
-        document.getElementById("loginBox").style.display = "none";
-        document.getElementById("registerBox").style.display = "none";
-        document.getElementById("userBox").style.display = "block";
+    onAuthStateChanged(auth, async (user)=>{
+      if(user){
+        document.getElementById("loginBox").style.display="none";
+        document.getElementById("registerBox").style.display="none";
+        document.getElementById("userBox").style.display="block";
         document.getElementById("userEmail").textContent = user.email;
 
-        // admin kontrol (örnek: belli mailler admin)
-        if (user.email === "admin@woozie.com") {
-          document.getElementById("adminPanel").style.display = "block";
-        }
-      } else {
-        document.getElementById("loginBox").style.display = "block";
-        document.getElementById("registerBox").style.display = "block";
-        document.getElementById("userBox").style.display = "none";
+        const adminDoc = await getDoc(doc(db,"admins",user.uid));
+        if(adminDoc.exists()){ document.getElementById("adminPanel").style.display="block"; }
+        else{ document.getElementById("adminPanel").style.display="none"; }
+
+      }else{
+        document.getElementById("loginBox").style.display="block";
+        document.getElementById("registerBox").style.display="block";
+        document.getElementById("userBox").style.display="none";
+        document.getElementById("adminPanel").style.display="none";
       }
     });
   </script>
+
 </body>
 </html>
