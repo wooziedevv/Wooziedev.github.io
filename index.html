@@ -1,200 +1,110 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Wooziedev</title>
-  <link rel="icon" href="https://i.hizliresim.com/sv3jcht.png" type="image/png">
-
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #000;
-      color: #fff;
-      transition: background 0.5s, color 0.5s;
-    }
-
-    header {
-      position: fixed; top: 0; width: 100%;
-      background-color: rgba(0, 0, 0, 0.85);
-      padding: 1rem 2rem;
-      display: flex; justify-content: space-between; align-items: center;
-      z-index: 999;
-    }
-
-    nav a { margin-left: 1.5rem; text-decoration: none; color: #fff; }
-    nav a:hover { text-decoration: underline; }
-
-    .toggle-btn {
-      background: #fff; color: #000; border: none; padding: 6px 12px;
-      border-radius: 6px; cursor: pointer; font-size: 0.9rem;
-      margin-left: 1rem;
-    }
-
-    .hero {
-      height: 100vh;
-      background: url('https://r.resimlink.com/8mRBNdDCfeZ.jpeg') no-repeat center center/cover;
-      display: flex; align-items: center; justify-content: center;
-      text-align: center; padding: 2rem; margin-top: 80px;
-    }
-
-    .hero h1 {
-      font-size: 3rem; background: rgba(0, 0, 0, 0.6);
-      padding: 1rem 2rem; border-radius: 10px;
-    }
-
-    main { max-width: 800px; margin: 0 auto; padding: 4rem 2rem; text-align: center; }
-    section { margin-bottom: 4rem; }
-
-    .about-section { position: relative; overflow: hidden; min-height: 600px; }
-    .about-section video {
-      position: absolute; top: 0; left: 0;
-      min-width: 100%; min-height: 100%;
-      z-index: -1; object-fit: cover;
-    }
-    .about-content {
-      position: relative; z-index: 2;
-      background-color: rgba(0,0,0,0.6);
-      padding: 2rem; border-radius: 10px;
-    }
-
-    /* Üyelik Sistemi */
-    #auth { background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 10px; }
-    #auth input { margin: 0.5rem; padding: 8px; border-radius: 5px; border: none; }
-    #auth button { padding: 8px 16px; border: none; border-radius: 5px; cursor: pointer; }
-
-    .hidden { display: none; }
-
-    /* PUBG Rehber */
-    #pubg { background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 10px; }
-
-    footer { text-align: center; padding: 2rem; border-top: 1px solid #333; font-size: 0.9rem; }
-
-    /* Gece-Gündüz Modları */
-    body.day { background: #e3f2fd; color: #000; }
-    body.day header { background: rgba(255,255,255,0.85); }
-    body.day nav a { color: #000; }
-  </style>
+  <meta charset="UTF-8">
+  <title>WoozieDev - Üyelik Sistemi</title>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
 </head>
 <body>
+  <h1>WoozieDev Üyelik Sistemi</h1>
 
-  <header>
-    <div class="logo" aria-label="W Logo">
-      <svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M10 35 L20 5 L30 35 L40 5 L50 35" stroke="#fff" stroke-width="5" stroke-linejoin="round"/>
-      </svg>
+  <!-- Register -->
+  <div id="registerBox">
+    <h3>Kayıt Ol</h3>
+    <input type="email" id="regEmail" placeholder="E-mail"><br>
+    <input type="password" id="regPassword" placeholder="Şifre"><br>
+    <button onclick="register()">Kayıt Ol</button>
+  </div>
+
+  <!-- Login -->
+  <div id="loginBox">
+    <h3>Giriş Yap</h3>
+    <input type="email" id="loginEmail" placeholder="E-mail"><br>
+    <input type="password" id="loginPassword" placeholder="Şifre"><br>
+    <button onclick="login()">Giriş</button>
+    <button onclick="resetPassword()">Şifremi Unuttum</button>
+  </div>
+
+  <!-- User Panel -->
+  <div id="userBox" style="display:none;">
+    <p>Hoşgeldin, <span id="userEmail"></span></p>
+    <button onclick="logout()">Çıkış Yap</button>
+
+    <!-- Sadece adminlere -->
+    <div id="adminPanel" style="display:none; margin-top:20px; border:1px solid #ccc; padding:10px;">
+      <h3>Admin Panel</h3>
+      <p>Kullanıcı yönetimi burada olacak.</p>
     </div>
-    <nav>
-      <a href="#home">Ana Sayfa</a>
-      <a href="#about">Hakkımda</a>
-      <a href="#contact">İletişim</a>
-      <a href="#auth">Üyelik</a>
-      <a href="#pubg">PUBG Rehber</a>
-      <button class="toggle-btn" id="modeToggle">🌙/☀️</button>
-    </nav>
-  </header>
+  </div>
 
-  <section class="hero" id="home">
-    <h1>wooziedev</h1>
-  </section>
+  <script type="module">
+    // 🔹 Firebase ayarlarını buraya yapıştır
+    const firebaseConfig = {
+      apiKey: "FIREBASE_API_KEY",
+      authDomain: "FIREBASE_PROJECT.firebaseapp.com",
+      projectId: "FIREBASE_PROJECT",
+      storageBucket: "FIREBASE_PROJECT.appspot.com",
+      messagingSenderId: "SENDER_ID",
+      appId: "APP_ID"
+    };
 
-  <main>
-    <section id="about" class="about-section">
-      <video autoplay muted loop playsinline>
-        <source src="https://cdn.streamable.com/video/mp4/f5/f55ocn.mp4" type="video/mp4">
-        Tarayıcın video etiketini desteklemiyor.
-      </video>
-      <div class="about-content">
-        <h2>Hakkımda</h2>
-        <p>Merhaba, ben Ata Göçke (WoozieDev). Mekanik mühendisiyim ama yazılım ve teknoloji benim asıl tutkum...</p>
-      </div>
-    </section>
+    // Başlat
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
-    <!-- Üyelik Sistemi -->
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-    <section id="contact">
-    <section id="auth">
-      <h2>Üyelik Sistemi</h2>
-      <div id="authForms">
-        <input type="text" id="username" placeholder="Kullanıcı Adı">
-        <input type="password" id="password" placeholder="Şifre">
-        <button onclick="register()">Kayıt Ol</button>
-        <button onclick="login()">Giriş Yap</button>
-      </div>
-      <div id="userPanel" class="hidden">
-        <p>Hoşgeldin, <span id="currentUser"></span>!</p>
-        <button onclick="logout()">Çıkış Yap</button>
-      </div>
-    </section>
+    // Register
+    window.register = () => {
+      const email = document.getElementById("regEmail").value;
+      const password = document.getElementById("regPassword").value;
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(() => alert("Kayıt başarılı!"))
+        .catch(err => alert(err.message));
+    };
 
-    <!-- PUBG Rehber -->
-    <section id="pubg" class="hidden">
-      <h2>PUBG Mobile Rehber</h2>
-      <p>Fatih ligine çıkmak için ipuçları ve taktikler burada paylaşılacak.</p>
-    </section>
+    // Login
+    window.login = () => {
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+      signInWithEmailAndPassword(auth, email, password)
+        .catch(err => alert(err.message));
+    };
 
-    <!-- İletişim -->
-    <section id="contact">
-      <h2>İletişim</h2>
-      <p>Bana sosyal medya üzerinden ulaşabilirsiniz:</p>
-      <div class="socials">
-        <a href="https://instagram.com/wooziedev" target="_blank">Instagram</a>
-        <a href="https://twitter.com/wooziedev" target="_blank">Twitter</a>
-        <a href="https://www.tiktok.com/@wooziedev" target="_blank">TikTok</a>
-      </div>
-      <form onsubmit="event.preventDefault(); alert('Mesaj gönderildi!');">
-        <input type="text" placeholder="Adınız" required>
-        <input type="email" placeholder="Email" required>
-        <textarea placeholder="Mesajınız" required></textarea>
-        <button type="submit">Gönder</button>
-      </form>
-    </section>
-  </main>
+    // Logout
+    window.logout = () => {
+      signOut(auth);
+    };
 
-  <footer>
-    &copy; 2025 WoozieDev. Kopyalarsan mezara kadar takip ederim aq.
-  </footer>
+    // Reset Password
+    window.resetPassword = () => {
+      const email = document.getElementById("loginEmail").value;
+      if (!email) return alert("Email gir!");
+      sendPasswordResetEmail(auth, email)
+        .then(() => alert("Şifre yenileme maili gönderildi!"))
+        .catch(err => alert(err.message));
+    };
 
-<script>
-  // Gece/Gündüz Modu
-  document.getElementById("modeToggle").addEventListener("click", () => {
-    document.body.classList.toggle("day");
-  });
+    // Kullanıcı durumunu izle
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("registerBox").style.display = "none";
+        document.getElementById("userBox").style.display = "block";
+        document.getElementById("userEmail").textContent = user.email;
 
-  // Üyelik Sistemi (LocalStorage)
-  function register() {
-    const user = document.getElementById("username").value;
-    const pass = document.getElementById("password").value;
-    if (!user || !pass) { alert("Boş bırakma!"); return; }
-    if (localStorage.getItem(user)) {
-      alert("Bu kullanıcı zaten var!");
-    } else {
-      localStorage.setItem(user, pass);
-      alert("Kayıt başarılı!");
-    }
-  }
-
-  function login() {
-    const user = document.getElementById("username").value;
-    const pass = document.getElementById("password").value;
-    if (localStorage.getItem(user) === pass) {
-      document.getElementById("authForms").classList.add("hidden");
-      document.getElementById("userPanel").classList.remove("hidden");
-      document.getElementById("currentUser").textContent = user;
-      document.getElementById("pubg").classList.remove("hidden");
-    } else {
-      alert("Kullanıcı adı veya şifre yanlış!");
-    }
-  }
-
-  function logout() {
-    document.getElementById("authForms").classList.remove("hidden");
-    document.getElementById("userPanel").classList.add("hidden");
-    document.getElementById("pubg").classList.add("hidden");
-  }
-</script>
-
+        // admin kontrol (örnek: belli mailler admin)
+        if (user.email === "admin@woozie.com") {
+          document.getElementById("adminPanel").style.display = "block";
+        }
+      } else {
+        document.getElementById("loginBox").style.display = "block";
+        document.getElementById("registerBox").style.display = "block";
+        document.getElementById("userBox").style.display = "none";
+      }
+    });
+  </script>
 </body>
 </html>
-
