@@ -4,128 +4,77 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Wooziedev</title>
-  <head> <link rel="icon" href="https://i.hizliresim.com/sv3jcht.png" type="image/png"> <head>
+  <link rel="icon" href="https://i.hizliresim.com/sv3jcht.png" type="image/png">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #000;
       color: #fff;
+      transition: background 0.5s, color 0.5s;
     }
 
     header {
-      position: fixed;
-      top: 0;
-      width: 100%;
+      position: fixed; top: 0; width: 100%;
       background-color: rgba(0, 0, 0, 0.85);
       padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: flex; justify-content: space-between; align-items: center;
       z-index: 999;
     }
 
-    .logo {
-      width: 60px;
-      height: 40px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    nav a { margin-left: 1.5rem; text-decoration: none; color: #fff; }
+    nav a:hover { text-decoration: underline; }
 
-    nav a {
-      margin-left: 2rem;
-      text-decoration: none;
-      color: #fff;
-      font-weight: 500;
-      font-size: 1rem;
-      transition: color 0.3s ease;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
+    .toggle-btn {
+      background: #fff; color: #000; border: none; padding: 6px 12px;
+      border-radius: 6px; cursor: pointer; font-size: 0.9rem;
+      margin-left: 1rem;
     }
 
     .hero {
       height: 100vh;
       background: url('https://r.resimlink.com/8mRBNdDCfeZ.jpeg') no-repeat center center/cover;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 2rem;
-      margin-top: 80px;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 2rem; margin-top: 80px;
     }
 
     .hero h1 {
-      font-size: 3rem;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 1rem 2rem;
-      border-radius: 10px;
+      font-size: 3rem; background: rgba(0, 0, 0, 0.6);
+      padding: 1rem 2rem; border-radius: 10px;
     }
 
-    main {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-      text-align: center;
-    }
+    main { max-width: 800px; margin: 0 auto; padding: 4rem 2rem; text-align: center; }
+    section { margin-bottom: 4rem; }
 
-    section {
-      margin-bottom: 4rem;
-    }
-
-    .about-section {
-      position: relative;
-      overflow: hidden;
-      color: white;
-      min-height: 600px;
-    }
-
+    .about-section { position: relative; overflow: hidden; min-height: 600px; }
     .about-section video {
-      position: absolute;
-      top: 0;
-      left: 0;
-      min-width: 100%;
-      min-height: 100%;
-      z-index: -1;
-      object-fit: cover;
+      position: absolute; top: 0; left: 0;
+      min-width: 100%; min-height: 100%;
+      z-index: -1; object-fit: cover;
     }
-
     .about-content {
-      position: relative;
-      z-index: 2;
+      position: relative; z-index: 2;
       background-color: rgba(0,0,0,0.6);
-      padding: 2rem;
-      border-radius: 10px;
+      padding: 2rem; border-radius: 10px;
     }
 
-    .socials a {
-      margin: 0 1rem;
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1.1rem;
-      transition: color 0.3s ease;
-    }
+    /* Üyelik Sistemi */
+    #auth { background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 10px; }
+    #auth input { margin: 0.5rem; padding: 8px; border-radius: 5px; border: none; }
+    #auth button { padding: 8px 16px; border: none; border-radius: 5px; cursor: pointer; }
 
-    .socials a:hover {
-      color: #0ff;
-    }
+    .hidden { display: none; }
 
-    footer {
-      text-align: center;
-      padding: 2rem;
-      border-top: 1px solid #333;
-      font-size: 0.9rem;
-    }
+    /* PUBG Rehber */
+    #pubg { background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 10px; }
+
+    footer { text-align: center; padding: 2rem; border-top: 1px solid #333; font-size: 0.9rem; }
+
+    /* Gece-Gündüz Modları */
+    body.day { background: #e3f2fd; color: #000; }
+    body.day header { background: rgba(255,255,255,0.85); }
+    body.day nav a { color: #000; }
   </style>
 </head>
 <body>
@@ -140,6 +89,9 @@
       <a href="#home">Ana Sayfa</a>
       <a href="#about">Hakkımda</a>
       <a href="#contact">İletişim</a>
+      <a href="#auth">Üyelik</a>
+      <a href="#pubg">PUBG Rehber</a>
+      <button class="toggle-btn" id="modeToggle">🌙/☀️</button>
     </nav>
   </header>
 
@@ -155,30 +107,94 @@
       </video>
       <div class="about-content">
         <h2>Hakkımda</h2>
-        <p>Merhaba, ben Ata Göçke, yani bilinen adıyla WoozieDev. Mekanik mühendisiyim ama yazılım ve teknoloji benim asıl tutkum. Kendi e-spor takımı olan B2G/DEV E-Sports’u kurdum ve takım yönetimiyle aktif olarak ilgileniyorum.</p>
-        <p>Oyunları çok severim; bu ik alanı bir araya getiren projeler üzerinde çalışmayı çok seviyorum. Kod yazmak benim için sadece iş değil, aynı zamanda keyif aldığım bir sanat.</p>
-        <p>Pubg Mobile Oynuyorum 2019/2020'de Profesyonel Olarak NaVi'de Oynadım Daha Sonra İse Promlemlerden Dolayı Ayrıldım Bu Ayrılık Benim Oyundan Soğumama Sebep Oldu Daha Sonra Gelen Teklifleri Redettim.</p>
-        <p> 2016'dan Beri Fivem İle İlgileniyorum Bu İlgi Benim Hem Yazılım Alanına Hem Oyunlara Olan İlgimi Artırdı,Bir Çok Sunucuya Sahiplik Yaptım GüzeL İşler Başardım Hala'da Devam Ediyorum. <p>
+        <p>Merhaba, ben Ata Göçke (WoozieDev). Mekanik mühendisiyim ama yazılım ve teknoloji benim asıl tutkum...</p>
       </div>
     </section>
 
+    <!-- Üyelik Sistemi -->
+
+    <section id="contact">
+    <section id="auth">
+      <h2>Üyelik Sistemi</h2>
+      <div id="authForms">
+        <input type="text" id="username" placeholder="Kullanıcı Adı">
+        <input type="password" id="password" placeholder="Şifre">
+        <button onclick="register()">Kayıt Ol</button>
+        <button onclick="login()">Giriş Yap</button>
+      </div>
+      <div id="userPanel" class="hidden">
+        <p>Hoşgeldin, <span id="currentUser"></span>!</p>
+        <button onclick="logout()">Çıkış Yap</button>
+      </div>
+    </section>
+
+    <!-- PUBG Rehber -->
+    <section id="pubg" class="hidden">
+      <h2>PUBG Mobile Rehber</h2>
+      <p>Fatih ligine çıkmak için ipuçları ve taktikler burada paylaşılacak.</p>
+    </section>
+
+    <!-- İletişim -->
     <section id="contact">
       <h2>İletişim</h2>
-      <p>Sosyal medya üzerinden bana ulaşabilirsiniz:</p>
+      <p>Bana sosyal medya üzerinden ulaşabilirsiniz:</p>
       <div class="socials">
         <a href="https://instagram.com/wooziedev" target="_blank">Instagram</a>
         <a href="https://twitter.com/wooziedev" target="_blank">Twitter</a>
         <a href="https://www.tiktok.com/@wooziedev" target="_blank">TikTok</a>
       </div>
-      <p>E-posta: <a href="mailto:wooziedevs@gmail.com" style="color:#fff;">wooziedevs@gmail.com</a></p>
+      <form onsubmit="event.preventDefault(); alert('Mesaj gönderildi!');">
+        <input type="text" placeholder="Adınız" required>
+        <input type="email" placeholder="Email" required>
+        <textarea placeholder="Mesajınız" required></textarea>
+        <button type="submit">Gönder</button>
+      </form>
     </section>
   </main>
 
   <footer>
-    &copy; © 2025 WoozieDev. Kopyalarsan mezara kadar takip ederim aq.
-
-
+    &copy; 2025 WoozieDev. Kopyalarsan mezara kadar takip ederim aq.
   </footer>
+
+<script>
+  // Gece/Gündüz Modu
+  document.getElementById("modeToggle").addEventListener("click", () => {
+    document.body.classList.toggle("day");
+  });
+
+  // Üyelik Sistemi (LocalStorage)
+  function register() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+    if (!user || !pass) { alert("Boş bırakma!"); return; }
+    if (localStorage.getItem(user)) {
+      alert("Bu kullanıcı zaten var!");
+    } else {
+      localStorage.setItem(user, pass);
+      alert("Kayıt başarılı!");
+    }
+  }
+
+  function login() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+    if (localStorage.getItem(user) === pass) {
+      document.getElementById("authForms").classList.add("hidden");
+      document.getElementById("userPanel").classList.remove("hidden");
+      document.getElementById("currentUser").textContent = user;
+      document.getElementById("pubg").classList.remove("hidden");
+    } else {
+      alert("Kullanıcı adı veya şifre yanlış!");
+    }
+  }
+
+  function logout() {
+    document.getElementById("authForms").classList.remove("hidden");
+    document.getElementById("userPanel").classList.add("hidden");
+    document.getElementById("pubg").classList.add("hidden");
+  }
+</script>
 
 </body>
 </html>
+
