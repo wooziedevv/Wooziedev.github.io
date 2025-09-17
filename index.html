@@ -67,7 +67,9 @@ textarea{resize:none;}
 <!-- Hakkımda -->
 <section id="aboutSection">
 <h2>Hakkımda</h2>
-<p>Merhaba, ben Ata Göçke, yani WoozieDev. Yazılım ve teknoloji benim asıl tutkum...</p>
+<p>Merhaba, ben Ata Göçke, yani WoozieDev. Yazılım ve teknoloji benim asıl tutkum. Kendi e-spor takımı B2G/DEV E-Sports’u kurdum ve takım yönetimiyle aktif olarak ilgileniyorum.</p>
+<p>Oyunları çok severim; bu alanı bir araya getiren projeler üzerinde çalışmayı çok seviyorum. Kod yazmak benim için işten öte bir keyif.</p>
+<p>PUBG Mobile oynuyorum; 2019/2020’de profesyonel olarak NaVi’de oynadım. Daha sonra ayrıldım ve gelen teklifleri reddettim. 2016’dan beri Fivem ile ilgileniyorum ve birçok sunucuya sahip oldum.</p>
 </section>
 
 <!-- Dashboard -->
@@ -131,22 +133,11 @@ textarea{resize:none;}
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
 import { 
-  getAuth, 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword, 
-  signOut, 
-  sendPasswordResetEmail, 
-  onAuthStateChanged, 
-  sendEmailVerification 
+  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, 
+  signOut, sendPasswordResetEmail, onAuthStateChanged, sendEmailVerification 
 } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-import { 
-  getFirestore, 
-  doc, setDoc, getDoc, collection, getDocs, addDoc, query, orderBy, onSnapshot 
-} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-import { 
-  getStorage, 
-  ref, uploadBytes, getDownloadURL 
-} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+import { getFirestore, doc, setDoc, getDoc, collection, getDocs, addDoc, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBRWCBCSNCLv2Mgz-8OAxTE_hHTcDPW9tE",
@@ -165,7 +156,6 @@ const storage = getStorage(app);
 
 const bannedWords = ["argo1","argo2","argo3"];
 
-// 🔹 Kayıt ol
 window.register = async ()=>{
   const username=document.getElementById("regUsername").value.trim();
   const email=document.getElementById("regEmail").value;
@@ -179,27 +169,26 @@ window.register = async ()=>{
 
   try{
     const cred=await createUserWithEmailAndPassword(auth,email,password);
-
-    // 🔹 E-posta doğrulama maili gönder
-    await sendEmailVerification(cred.user, {
-      url: "https://wooziedev.github.io/afterVerify.html"
-    });
-
     await setDoc(doc(db,"users",cred.user.uid),{
       email,username,createdAt:new Date().toISOString(),about:"",profileImg:""
     });
-    alert("Kayıt başarılı! Lütfen e-postanı doğrula.");
+
+    // ✅ Mail doğrulama linki afterVerify.html yönlendirmeli
+    await sendEmailVerification(cred.user, {
+      url: "afterVerify.html"
+    });
+
+    alert("Kayıt başarılı! Mail kutunuza doğrulama bağlantısı gönderildi ✅");
   }catch(e){alert(e.message);}
 };
 
-// 🔹 Giriş yap (sadece doğrulanmış mail için)
 window.login = async ()=>{
   const email=document.getElementById("loginEmail").value;
   const password=document.getElementById("loginPassword").value;
   try{
-    const cred = await signInWithEmailAndPassword(auth,email,password);
-    if(!cred.user.emailVerified){
-      alert("Lütfen önce e-posta adresinizi doğrulayın.");
+    const userCred = await signInWithEmailAndPassword(auth,email,password);
+    if(!userCred.user.emailVerified){
+      alert("Lütfen önce mailinizi doğrulayın!");
       await signOut(auth);
     }
   }catch(e){alert(e.message);}
@@ -210,7 +199,9 @@ window.logout = ()=>signOut(auth);
 window.resetPassword = ()=>{
   const email=document.getElementById("loginEmail").value;
   if(!email) return alert("Email giriniz.");
-  sendPasswordResetEmail(auth,email).then(()=>alert("Şifre yenileme maili gönderildi.")).catch(e=>alert(e.message));
+  sendPasswordResetEmail(auth,email)
+    .then(()=>alert("Şifre yenileme maili gönderildi."))
+    .catch(e=>alert(e.message));
 };
 
 onAuthStateChanged(auth,user=>{
@@ -228,7 +219,7 @@ onAuthStateChanged(auth,user=>{
   }
 });
 
-// 🔹 Profil yükle
+// Profil yükle
 async function loadProfile(uid){
   const docSnap=await getDoc(doc(db,"users",uid));
   if(docSnap.exists()){
@@ -239,7 +230,7 @@ async function loadProfile(uid){
   }
 }
 
-// 🔹 Profil kaydet
+// Profil kaydet
 window.saveProfile = async ()=>{
   const user = auth.currentUser;
   const about = document.getElementById("aboutMe").value;
@@ -258,7 +249,7 @@ window.saveProfile = async ()=>{
   loadProfile(user.uid);
 }
 
-// 🔹 Oyuncu arama
+// Oyuncu arama
 window.searchPlayer = async ()=>{
   const queryVal=document.getElementById("searchPlayer").value.trim().toLowerCase();
   const results=document.getElementById("searchResults");
@@ -270,7 +261,7 @@ window.searchPlayer = async ()=>{
   results.innerHTML=matches.length? matches.map(d=>`<li>${d.data().username} (${d.data().email})</li>`).join("") : "Kullanıcı bulunamadı.";
 }
 
-// 🔹 Sohbet
+// Sohbet
 const chatBox=document.getElementById("chatBox");
 const chatInput=document.getElementById("chatInput");
 const chatRef=collection(db,"chat");
