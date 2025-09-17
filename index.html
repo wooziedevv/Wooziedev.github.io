@@ -7,12 +7,12 @@
 <link rel="icon" href="https://i.hizliresim.com/sv3jcht.png" type="image/png">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Segoe UI', Tahoma, Geneva, Verdana,sans-serif;background:#0f0f0f;color:#fff;}
+body{font-family:'Segoe UI', sans-serif;background:#0f0f0f;color:#fff;}
 header{position:fixed;top:0;width:100%;background:#111;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;z-index:999;border-bottom:1px solid #222;}
 .logo svg{width:60px;height:40px;}
 nav a{margin-left:2rem;text-decoration:none;color:#fff;font-weight:500;transition:0.3s;}
 nav a:hover{color:#0ff;}
-main{margin-top:100px;padding:2rem;max-width:1200px;margin-left:auto;margin-right:auto;}
+main{margin-top:100px;padding:2rem;max-width:1200px;margin:auto;}
 input,button,textarea{padding:0.6rem;margin:0.3rem 0;border-radius:5px;border:none;outline:none;}
 input,textarea{width:100%;}
 button{cursor:pointer;background:#fff;color:#000;font-weight:600;transition:0.2s;}
@@ -24,6 +24,7 @@ button:hover{background:#ccc;}
 #searchResults li{margin:5px 0;list-style:none;border-bottom:1px solid #222;padding:5px;}
 #profileImgPreview{width:100px;height:100px;border-radius:50%;object-fit:cover;border:2px solid #fff;margin-bottom:10px;}
 textarea{resize:none;}
+.alertBox{background:#222;color:#0ff;padding:10px;margin:10px 0;border-radius:5px;}
 @media(max-width:900px){#dashboardContainer{grid-template-columns:1fr;} input{width:100%;}}
 </style>
 </head>
@@ -47,6 +48,9 @@ textarea{resize:none;}
 <!-- Kayıt / Giriş -->
 <section id="auth">
 <h2>Kayıt / Giriş</h2>
+<div id="alertEmailVerify" class="alertBox" style="display:none;">
+Lütfen e-postanızı doğrulayınız. Mailinize gelen linki tıklayın.
+</div>
 <div id="registerBox">
 <h3>Kayıt Ol</h3>
 <input type="text" id="regUsername" placeholder="Kullanıcı Adı">
@@ -162,7 +166,6 @@ const password=document.getElementById("regPassword").value;
 if(!username||!email||!password) return alert("Tüm alanları doldurun.");
 if(bannedWords.some(w=>username.toLowerCase().includes(w))) return alert("Kullanıcı adı uygun değil.");
 
-// Benzersiz kullanıcı adı kontrolü
 const usersRef=collection(db,"users");
 const snapshot=await getDocs(usersRef);
 if(snapshot.docs.some(d=>d.data().username===username)) return alert("Bu kullanıcı adı alınmış.");
@@ -202,17 +205,19 @@ document.getElementById("loginBox").style.display="none";
 if(user.emailVerified){
 document.getElementById("dashboardContainer").style.display="grid";
 document.getElementById("profileSection").style.display="block";
+document.getElementById("alertEmailVerify").style.display="none";
 loadProfile(user.uid);
 }else{
 document.getElementById("dashboardContainer").style.display="none";
 document.getElementById("profileSection").style.display="none";
-alert("Lütfen e-postanızı doğrulayın!");
+document.getElementById("alertEmailVerify").style.display="block";
 }
 }else{
 document.getElementById("registerBox").style.display="block";
 document.getElementById("loginBox").style.display="block";
 document.getElementById("dashboardContainer").style.display="none";
 document.getElementById("profileSection").style.display="none";
+document.getElementById("alertEmailVerify").style.display="none";
 }
 });
 
