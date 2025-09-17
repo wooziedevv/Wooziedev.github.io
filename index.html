@@ -24,7 +24,6 @@ button:hover{background:#ccc;}
 #searchResults li{margin:5px 0;list-style:none;border-bottom:1px solid #222;padding:5px;}
 #profileImgPreview{width:100px;height:100px;border-radius:50%;object-fit:cover;border:2px solid #fff;margin-bottom:10px;}
 textarea{resize:none;}
-.alertBox{background:#222;color:#0ff;padding:10px;margin:10px 0;border-radius:5px;}
 @media(max-width:900px){#dashboardContainer{grid-template-columns:1fr;} input{width:100%;}}
 </style>
 </head>
@@ -48,9 +47,6 @@ textarea{resize:none;}
 <!-- Kayıt / Giriş -->
 <section id="auth">
 <h2>Kayıt / Giriş</h2>
-<div id="alertEmailVerify" class="alertBox" style="display:none;">
-Lütfen e-postanızı doğrulayınız. Mailinize gelen linki tıklayın.
-</div>
 <div id="registerBox">
 <h3>Kayıt Ol</h3>
 <input type="text" id="regUsername" placeholder="Kullanıcı Adı">
@@ -136,7 +132,7 @@ Lütfen e-postanızı doğrulayınız. Mailinize gelen linki tıklayın.
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, signOut, sendPasswordResetEmail, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc, collection, getDocs, addDoc, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
 
@@ -155,10 +151,8 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-// Argo kelime filtresi
 const bannedWords = ["argo1","argo2","argo3"];
 
-// Register
 window.register = async ()=>{
 const username=document.getElementById("regUsername").value.trim();
 const email=document.getElementById("regEmail").value;
@@ -172,52 +166,39 @@ if(snapshot.docs.some(d=>d.data().username===username)) return alert("Bu kullan�
 
 try{
 const cred=await createUserWithEmailAndPassword(auth,email,password);
-await sendEmailVerification(cred.user);
 await setDoc(doc(db,"users",cred.user.uid),{
 email,username,createdAt:new Date().toISOString(),about:"",profileImg:""
 });
-alert("Kayıt başarılı! Lütfen e-posta doğrulaması yapın.");
+alert("Kayıt başarılı!");
 }catch(e){alert(e.message);}
 };
 
-// Login
 window.login = async ()=>{
 const email=document.getElementById("loginEmail").value;
 const password=document.getElementById("loginPassword").value;
 try{await signInWithEmailAndPassword(auth,email,password);}catch(e){alert(e.message);}
 };
 
-// Logout
 window.logout = ()=>signOut(auth);
 
-// Şifre reset
 window.resetPassword = ()=>{
 const email=document.getElementById("loginEmail").value;
 if(!email) return alert("Email giriniz.");
 sendPasswordResetEmail(auth,email).then(()=>alert("Şifre yenileme maili gönderildi.")).catch(e=>alert(e.message));
 };
 
-// Auth state
 onAuthStateChanged(auth,user=>{
 if(user){
 document.getElementById("registerBox").style.display="none";
 document.getElementById("loginBox").style.display="none";
-if(user.emailVerified){
 document.getElementById("dashboardContainer").style.display="grid";
 document.getElementById("profileSection").style.display="block";
-document.getElementById("alertEmailVerify").style.display="none";
 loadProfile(user.uid);
-}else{
-document.getElementById("dashboardContainer").style.display="none";
-document.getElementById("profileSection").style.display="none";
-document.getElementById("alertEmailVerify").style.display="block";
-}
 }else{
 document.getElementById("registerBox").style.display="block";
 document.getElementById("loginBox").style.display="block";
 document.getElementById("dashboardContainer").style.display="none";
 document.getElementById("profileSection").style.display="none";
-document.getElementById("alertEmailVerify").style.display="none";
 }
 });
 
@@ -263,7 +244,7 @@ const matches=snapshot.docs.filter(d=>d.data().username.toLowerCase().includes(q
 results.innerHTML=matches.length? matches.map(d=>`<li>${d.data().username} (${d.data().email})</li>`).join("") : "Kullanıcı bulunamadı.";
 }
 
-// Sohbet sistemi
+// Sohbet
 const chatBox=document.getElementById("chatBox");
 const chatInput=document.getElementById("chatInput");
 const chatRef=collection(db,"chat");
@@ -279,7 +260,6 @@ createdAt:new Date()
 chatInput.value="";
 }
 
-// Gerçek zamanlı mesajlar
 const q=query(chatRef,orderBy("createdAt"));
 onSnapshot(q,snapshot=>{
 chatBox.innerHTML="";
