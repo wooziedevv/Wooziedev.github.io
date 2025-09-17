@@ -1,226 +1,292 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wooziedev Panel</title>
-  <link rel="icon" href="https://i.hizliresim.com/sv3jcht.png" type="image/png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wooziedev Panel</title>
+<link rel="icon" href="https://i.hizliresim.com/sv3jcht.png" type="image/png">
 
-  <style>
-    /* Genel stil ve reset */
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#0f0f0f; color:#fff; }
-
-    header { position:fixed; top:0; width:100%; background:#111; padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center; z-index:999; border-bottom:1px solid #222; }
-    .logo svg { width:60px; height:40px; }
-    nav a { margin-left:2rem; text-decoration:none; color:#fff; font-weight:500; transition:0.3s; }
-    nav a:hover { color:#0ff; }
-
-    main { margin-top:80px; padding:2rem; max-width:1200px; margin-left:auto; margin-right:auto; }
-
-    /* Auth ve Dashboard */
-    #auth, #dashboardContainer { margin-top:2rem; }
-    input, button { padding:0.6rem; margin:0.3rem 0; border-radius:5px; border:none; outline:none; }
-    input { width:200px; }
-    button { cursor:pointer; background:#0ff; color:#000; font-weight:600; transition:0.2s; }
-    button:hover { background:#0cc; }
-
-    /* Dashboard Grid */
-    #dashboardContainer { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
-    .card { background:#111; padding:15px; border-radius:10px; border:1px solid #222; }
-    .card h3 { margin-bottom:10px; color:#0ff; }
-    #chatBox { height:200px; overflow-y:auto; border:1px solid #222; padding:10px; margin-bottom:10px; background:#000; }
-    #searchResults li { margin:5px 0; list-style:none; border-bottom:1px solid #222; padding:5px; }
-
-    /* Responsive */
-    @media(max-width:900px){ #dashboardContainer { grid-template-columns:1fr; } input { width:100%; } }
-  </style>
+<style>
+/* Genel stil */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI', Tahoma, Geneva, Verdana,sans-serif;background:#0f0f0f;color:#fff;}
+header{position:fixed;top:0;width:100%;background:#111;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;z-index:999;border-bottom:1px solid #222;}
+.logo svg{width:60px;height:40px;}
+nav a{margin-left:2rem;text-decoration:none;color:#fff;font-weight:500;transition:0.3s;}
+nav a:hover{color:#0ff;}
+main{margin-top:80px;padding:2rem;max-width:1200px;margin-left:auto;margin-right:auto;}
+/* Auth ve Dashboard */
+#auth, #dashboardContainer, #profileSection {margin-top:2rem;}
+input, button, textarea{padding:0.6rem;margin:0.3rem 0;border-radius:5px;border:none;outline:none;}
+input, textarea{width:100%;}
+button{cursor:pointer;background:#fff;color:#000;font-weight:600;transition:0.2s;}
+button:hover{background:#ccc;}
+#dashboardContainer{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.card{background:#111;padding:15px;border-radius:10px;border:1px solid #222;}
+.card h3{margin-bottom:10px;color:#fff;}
+#chatBox{height:200px;overflow-y:auto;border:1px solid #222;padding:10px;background:#000;}
+#searchResults li{margin:5px 0;list-style:none;border-bottom:1px solid #222;padding:5px;}
+#profileImgPreview{width:100px;height:100px;border-radius:50%;object-fit:cover;border:2px solid #fff;margin-bottom:10px;}
+textarea{resize:none;}
+/* Responsive */
+@media(max-width:900px){#dashboardContainer{grid-template-columns:1fr;} input{width:100%;}}
+</style>
 </head>
 <body>
 
 <header>
-  <div class="logo">
-    <svg viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M10 35 L20 5 L30 35 L40 5 L50 35" stroke="#0ff" stroke-width="5" stroke-linejoin="round"/>
-    </svg>
-  </div>
-  <nav>
-    <a href="#dashboard">Dashboard</a>
-    <a href="#contact">İletişim</a>
-  </nav>
+<div class="logo">
+<svg viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M10 35 L20 5 L30 35 L40 5 L50 35" stroke="#fff" stroke-width="5" stroke-linejoin="round"/>
+</svg>
+</div>
+<nav>
+<a href="#dashboard">Dashboard</a>
+<a href="#profileSection">Profil</a>
+<a href="#contact">İletişim</a>
+</nav>
 </header>
 
 <main>
-  <!-- Üyelik Sistemi -->
-  <section id="auth">
-    <h2>Üyelik Sistemi</h2>
 
-    <div id="registerBox">
-      <h3>Kayıt Ol</h3>
-      <input type="email" id="regEmail" placeholder="E-mail"><br>
-      <input type="password" id="regPassword" placeholder="Şifre"><br>
-      <button onclick="register()">Kayıt Ol</button>
-    </div>
+<!-- Hakkımda -->
+<section id="aboutSection">
+<h2>Hakkımda</h2>
+<p>Merhaba, ben Ata Göçke, yani WoozieDev. Yazılım ve teknoloji benim asıl tutkum. Kendi e-spor takımı B2G/DEV E-Sports’u kurdum ve takım yönetimiyle aktif olarak ilgileniyorum.</p>
+<p>Oyunları çok severim; bu alanı bir araya getiren projeler üzerinde çalışmayı çok seviyorum. Kod yazmak benim için işten öte bir keyif.</p>
+<p>PUBG Mobile oynuyorum; 2019/2020’de profesyonel olarak NaVi’de oynadım. Daha sonra ayrıldım ve gelen teklifleri reddettim. 2016’dan beri Fivem ile ilgileniyorum ve birçok sunucuya sahip oldum.</p>
+</section>
 
-    <div id="loginBox">
-      <h3>Giriş Yap</h3>
-      <input type="email" id="loginEmail" placeholder="E-mail"><br>
-      <input type="password" id="loginPassword" placeholder="Şifre"><br>
-      <button onclick="login()">Giriş</button>
-      <button onclick="resetPassword()">Şifremi Unuttum</button>
-    </div>
-  </section>
+<!-- Üyelik Sistemi -->
+<section id="auth">
+<h2>Üyelik Sistemi</h2>
+<div id="registerBox">
+<h3>Kayıt Ol</h3>
+<input type="text" id="regUsername" placeholder="Kullanıcı Adı">
+<input type="email" id="regEmail" placeholder="E-mail">
+<input type="password" id="regPassword" placeholder="Şifre">
+<button onclick="register()">Kayıt Ol</button>
+</div>
 
-  <!-- Dashboard -->
-  <section id="dashboardContainer" style="display:none;">
-    <div class="card" id="rankCard">
-      <h3>PUBG Rank Kasımı</h3>
-      <ul id="rankTasks">
-        <li>Görev 1: 5 maç kazan</li>
-        <li>Görev 2: 10 düşman öldür</li>
-        <li>Görev 3: 1 Scrim kazan</li>
-      </ul>
-    </div>
+<div id="loginBox">
+<h3>Giriş Yap</h3>
+<input type="email" id="loginEmail" placeholder="E-mail">
+<input type="password" id="loginPassword" placeholder="Şifre">
+<button onclick="login()">Giriş</button>
+<button onclick="resetPassword()">Şifremi Unuttum</button>
+</div>
+</section>
 
-    <div class="card" id="eventCard">
-      <h3>Scrim / Eventler</h3>
-      <ul id="eventList">
-        <li>Scrim 1 - 18 Eylül, 20:00</li>
-        <li>Event 2 - 20 Eylül, 21:00</li>
-        <li>Turnuva Başlangıcı - 25 Eylül</li>
-      </ul>
-    </div>
+<!-- Dashboard -->
+<section id="dashboardContainer" style="display:none;">
+<div class="card" id="rankCard">
+<h3>PUBG Rank Kasımı</h3>
+<ul id="rankTasks">
+<li>Görev 1: 5 maç kazan</li>
+<li>Görev 2: 10 düşman öldür</li>
+<li>Görev 3: 1 Scrim kazan</li>
+</ul>
+</div>
 
-    <div class="card" style="grid-column:span 2;">
-      <h3>Oyuncu Ara</h3>
-      <input type="text" id="searchPlayer" placeholder="Oyuncu e-mail veya nick gir">
-      <button onclick="searchPlayer()">Ara</button>
-      <ul id="searchResults"></ul>
-    </div>
+<div class="card" id="eventCard">
+<h3>Scrim / Eventler</h3>
+<ul id="eventList">
+<li>Scrim 1 - 18 Eylül, 20:00</li>
+<li>Event 2 - 20 Eylül, 21:00</li>
+<li>Turnuva Başlangıcı - 25 Eylül</li>
+</ul>
+</div>
 
-    <div class="card" style="grid-column:span 2;">
-      <h3>Sohbet</h3>
-      <div id="chatBox"></div>
-      <input type="text" id="chatInput" placeholder="Mesajınızı yazın...">
-      <button onclick="sendMessage()">Gönder</button>
-    </div>
-  </section>
+<div class="card" style="grid-column:span 2;">
+<h3>Oyuncu Ara</h3>
+<input type="text" id="searchPlayer" placeholder="Oyuncu e-mail veya kullanıcı adı">
+<button onclick="searchPlayer()">Ara</button>
+<ul id="searchResults"></ul>
+</div>
 
-  <!-- İletişim -->
-  <section id="contact" style="margin-top:3rem;">
-    <h2>İletişim</h2>
-    <p>Sosyal medya üzerinden ulaşabilirsiniz:</p>
-    <div>
-      <a href="https://instagram.com/wooziedev" target="_blank">Instagram</a> |
-      <a href="https://twitter.com/wooziedev" target="_blank">Twitter</a> |
-      <a href="https://www.tiktok.com/@wooziedev" target="_blank">TikTok</a>
-    </div>
-    <p>E-posta: <a href="mailto:wooziedevs@gmail.com">wooziedevs@gmail.com</a></p>
-  </section>
+<div class="card" style="grid-column:span 2;">
+<h3>Sohbet</h3>
+<div id="chatBox"></div>
+<input type="text" id="chatInput" placeholder="Mesajınızı yazın...">
+<button onclick="sendMessage()">Gönder</button>
+</div>
+</section>
+
+<!-- Profil -->
+<section id="profileSection" style="display:none;">
+<h2>Profilim</h2>
+<img id="profileImgPreview" src="" alt="Profil Fotoğrafı">
+<input type="file" id="profileImgInput">
+<textarea id="aboutMe" rows="4" placeholder="Hakkında yazısı"></textarea>
+<button onclick="saveProfile()">Profili Kaydet</button>
+<p>Kullanıcı Adınız: <span id="displayUsername"></span></p>
+<button onclick="logout()">Çıkış Yap</button>
+</section>
+
+<!-- İletişim -->
+<section id="contact" style="margin-top:3rem;">
+<h2>İletişim</h2>
+<p>Sosyal medya üzerinden ulaşabilirsiniz:</p>
+<div>
+<a href="https://instagram.com/wooziedev" target="_blank">Instagram</a> |
+<a href="https://twitter.com/wooziedev" target="_blank">Twitter</a> |
+<a href="https://www.tiktok.com/@wooziedev" target="_blank">TikTok</a>
+</div>
+<p>E-posta: <a href="mailto:wooziedevs@gmail.com">wooziedevs@gmail.com</a></p>
+</section>
 </main>
 
-<!-- Firebase ve JS -->
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-  import { getFirestore, collection, addDoc, query, getDocs, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, collection, getDocs, addDoc, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyBRWCBCSNCLv2Mgz-8OAxTE_hHTcDPW9tE",
-    authDomain: "wooziedevsite.firebaseapp.com",
-    projectId: "wooziedevsite",
-    storageBucket: "wooziedevsite.appspot.com",
-    messagingSenderId: "181692137747",
-    appId: "1:181692137747:web:f773cfb5d4db225e70dae6",
-    measurementId: "G-MN27FH3XCQ"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyBRWCBCSNCLv2Mgz-8OAxTE_hHTcDPW9tE",
+  authDomain: "wooziedevsite.firebaseapp.com",
+  projectId: "wooziedevsite",
+  storageBucket: "wooziedevsite.appspot.com",
+  messagingSenderId: "181692137747",
+  appId: "1:181692137747:web:f773cfb5d4db225e70dae6",
+  measurementId: "G-MN27FH3XCQ"
+};
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
 
-  // Register
-  window.register = async () => {
-    const email = document.getElementById("regEmail").value;
-    const password = document.getElementById("regPassword").value;
-    if (!email || !password) return alert("Email ve şifre girin.");
-    try { await createUserWithEmailAndPassword(auth, email, password); alert("Kayıt başarılı!"); }
-    catch(e){ alert(e.message); }
-  };
+// Argo kelime filtresi
+const bannedWords = ["argo1","argo2","argo3"];
 
-  // Login
-  window.login = async () => {
-    const email = document.getElementById("loginEmail").value;
-    const password = document.getElementById("loginPassword").value;
-    try { await signInWithEmailAndPassword(auth,email,password); }
-    catch(e){ alert(e.message); }
-  };
+// Register
+window.register = async ()=>{
+  const username = document.getElementById("regUsername").value.trim();
+  const email = document.getElementById("regEmail").value;
+  const password = document.getElementById("regPassword").value;
+  if(!username || !email || !password) return alert("Tüm alanları doldurun.");
 
-  // Logout
-  window.logout = () => signOut(auth);
+  if(bannedWords.some(w=>username.toLowerCase().includes(w))) return alert("Kullanıcı adı uygun değil.");
 
-  // Şifre reset
-  window.resetPassword = () => {
-    const email = document.getElementById("loginEmail").value;
-    if (!email) return alert("Email giriniz.");
-    sendPasswordResetEmail(auth,email)
-      .then(()=>alert("Şifre yenileme maili gönderildi."))
-      .catch(err=>alert(err.message));
-  };
+  // Benzersiz kullanıcı adı kontrolü
+  const usersRef = collection(db,"users");
+  const snapshot = await getDocs(usersRef);
+  if(snapshot.docs.some(d=>d.data().username===username)) return alert("Bu kullanıcı adı alınmış.");
 
-  // Auth state
-  onAuthStateChanged(auth,user=>{
-    if(user){
-      document.getElementById("registerBox").style.display="none";
-      document.getElementById("loginBox").style.display="none";
-      document.getElementById("dashboardContainer").style.display="grid";
-    } else {
-      document.getElementById("registerBox").style.display="block";
-      document.getElementById("loginBox").style.display="block";
-      document.getElementById("dashboardContainer").style.display="none";
-    }
-  });
-
-  // Oyuncu arama
-  window.searchPlayer = async () => {
-    const queryVal = document.getElementById("searchPlayer").value.trim();
-    const results = document.getElementById("searchResults");
-    results.innerHTML = "Aranıyor...";
-    if(!queryVal) { results.innerHTML=""; return; }
-    const usersRef = collection(db,"users");
-    const snapshot = await getDocs(usersRef);
-    const matches = snapshot.docs.filter(d=>d.data().email.includes(queryVal));
-    results.innerHTML = matches.length ? matches.map(d=>`<li>${d.data().email}</li>`).join("") : "Kullanıcı bulunamadı.";
-  };
-
-  // Sohbet sistemi
-  const chatBox = document.getElementById("chatBox");
-  const chatInput = document.getElementById("chatInput");
-  const chatRef = collection(db,"chat");
-
-  window.sendMessage = async () => {
-    const msg = chatInput.value.trim();
-    if(!msg) return;
-    await addDoc(chatRef,{
-      sender: auth.currentUser.email,
-      message: msg,
-      createdAt: new Date()
+  try{
+    const cred = await createUserWithEmailAndPassword(auth,email,password);
+    await setDoc(doc(db,"users",cred.user.uid),{
+      email, username, createdAt:new Date().toISOString(), about:"", profileImg:""
     });
-    chatInput.value="";
-  };
+    alert("Kayıt başarılı!");
+  }catch(e){alert(e.message);}
+};
 
-  // Gerçek zamanlı mesajları dinle
-  const q = query(chatRef, orderBy("createdAt"));
-  onSnapshot(q, snapshot=>{
-    chatBox.innerHTML="";
-    snapshot.docs.forEach(doc=>{
-      const data = doc.data();
-      const p = document.createElement("p");
-      p.textContent = `${data.sender}: ${data.message}`;
-      chatBox.appendChild(p);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    });
+// Login
+window.login = async ()=>{
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+  try{await signInWithEmailAndPassword(auth,email,password);}catch(e){alert(e.message);}
+};
+
+// Logout
+window.logout = ()=>signOut(auth);
+
+// Şifre reset
+window.resetPassword = ()=>{
+  const email = document.getElementById("loginEmail").value;
+  if(!email) return alert("Email giriniz.");
+  sendPasswordResetEmail(auth,email).then(()=>alert("Şifre yenileme maili gönderildi.")).catch(e=>alert(e.message));
+};
+
+// Auth state
+onAuthStateChanged(auth,user=>{
+  if(user){
+    document.getElementById("registerBox").style.display="none";
+    document.getElementById("loginBox").style.display="none";
+    document.getElementById("dashboardContainer").style.display="grid";
+    document.getElementById("profileSection").style.display="block";
+    loadProfile(user.uid);
+  }else{
+    document.getElementById("registerBox").style.display="block";
+    document.getElementById("loginBox").style.display="block";
+    document.getElementById("dashboardContainer").style.display="none";
+    document.getElementById("profileSection").style.display="none";
+  }
+});
+
+// Profil yükle
+async function loadProfile(uid){
+  const docSnap = await getDoc(doc(db,"users",uid));
+  if(docSnap.exists()){
+    const data = docSnap.data();
+    document.getElementById("displayUsername").textContent = data.username;
+    document.getElementById("aboutMe").value = data.about||"";
+    if(data.profileImg) document.getElementById("profileImgPreview").src = data.profileImg;
+    else document.getElementById("profileImgPreview").src = "https://via.placeholder.com/100";
+  }
+}
+
+// Profil kaydet
+window.saveProfile = async ()=>{
+  const user = auth.currentUser;
+  const about = document.getElementById("aboutMe").value;
+  const file = document.getElementById("profileImgInput").files[0];
+  let profileUrl="";
+  if(file){
+    const storageRef = ref(storage,"profiles/"+user.uid);
+    await uploadBytes(storageRef,file);
+    profileUrl = await getDownloadURL(storageRef);
+  }
+  await setDoc(doc(db,"users",user.uid),{
+    about,
+    profileImg: profileUrl||document.getElementById("profileImgPreview").src
+  },{merge:true});
+  alert("Profil güncellendi!");
+  loadProfile(user.uid);
+}
+
+// Oyuncu arama
+window.searchPlayer = async ()=>{
+  const queryVal = document.getElementById("searchPlayer").value.trim().toLowerCase();
+  const results = document.getElementById("searchResults");
+  results.innerHTML = "Aranıyor...";
+  if(!queryVal){results.innerHTML=""; return;}
+  const usersRef = collection(db,"users");
+  const snapshot = await getDocs(usersRef);
+  const matches = snapshot.docs.filter(d=>d.data().username.toLowerCase().includes(queryVal) || d.data().email.toLowerCase().includes(queryVal));
+  results.innerHTML = matches.length? matches.map(d=>`<li>${d.data().username} (${d.data().email})</li>`).join("") : "Kullanıcı bulunamadı.";
+}
+
+// Sohbet sistemi
+const chatBox = document.getElementById("chatBox");
+const chatInput = document.getElementById("chatInput");
+const chatRef = collection(db,"chat");
+
+window.sendMessage = async ()=>{
+  const msg = chatInput.value.trim();
+  if(!msg) return;
+  await addDoc(chatRef,{
+    sender: auth.currentUser.displayName || document.getElementById("displayUsername").textContent,
+    message: msg,
+    createdAt: new Date()
   });
+  chatInput.value="";
+}
+
+// Gerçek zamanlı mesajlar
+const q = query(chatRef,orderBy("createdAt"));
+onSnapshot(q,snapshot=>{
+  chatBox.innerHTML="";
+  snapshot.docs.forEach(doc=>{
+    const data = doc.data();
+    const p = document.createElement("p");
+    p.textContent = `${data.sender}: ${data.message}`;
+    chatBox.appendChild(p);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  });
+});
 </script>
 
 </body>
