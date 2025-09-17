@@ -83,7 +83,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Argo ve eşsiz kullanıcı adı kontrolü
 const bannedWords = ["argo1","argo2","argo3"];
 
 window.register = async ()=>{
@@ -101,9 +100,8 @@ try {
   const userCred = await createUserWithEmailAndPassword(auth,email,password);
   const user = userCred.user;
 
-  // E-posta doğrulama maili gönder
   const actionCodeSettings = {
-    url: 'https://seninsite.com/login', // Buraya kendi site URL'ini koy
+    url: window.location.hostname.includes("localhost") ? 'http://localhost:5500' : 'https://seninsite.com/login', 
     handleCodeInApp: true
   };
   await sendEmailVerification(user, actionCodeSettings);
@@ -145,6 +143,7 @@ if(user.emailVerified){
   document.getElementById("dashboardContainer").style.display="block";
   document.getElementById("profileSection").style.display="block";
   document.getElementById("alertEmailVerify").style.display="none";
+  loadProfile(user.uid);
 }else{
   document.getElementById("dashboardContainer").style.display="none";
   document.getElementById("profileSection").style.display="none";
@@ -158,6 +157,28 @@ document.getElementById("profileSection").style.display="none";
 document.getElementById("alertEmailVerify").style.display="none";
 }
 });
+
+// Profil yükleme fonksiyonu
+async function loadProfile(uid){
+const docRef = doc(db,"users",uid);
+const docSnap = await getDoc(docRef);
+if(docSnap.exists()){
+  const data = docSnap.data();
+  document.getElementById("displayUsername").textContent = data.username || "";
+  document.getElementById("aboutMe").value = data.about || "";
+}
+}
+
+// Profil kaydetme fonksiyonu
+async function saveProfile(){
+const user = auth.currentUser;
+if(!user) return alert("Giriş yapmalısınız.");
+await setDoc(doc(db,"users",user.uid),{
+  ...((await (await getDoc(doc(db,"users",user.uid))).data()) || {}),
+  about: document.getElementById("aboutMe").value
+});
+alert("Profil kaydedildi.");
+}
 </script>
 
 </body>
