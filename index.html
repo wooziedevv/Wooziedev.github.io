@@ -1,247 +1,241 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wooziedev Site</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Wooziedev</title>
+<link rel="icon" href="https://i.hizliresim.com/sv3jcht.png" type="image/png">
 <style>
-  body { margin:0; font-family: Arial, sans-serif; background:#f0f0f0; }
-  header { display:flex; justify-content:space-between; align-items:center; background:#222; color:white; padding:10px 20px; position:fixed; width:100%; top:0; z-index:100; }
-  header h1 { margin:0; font-size:1.2em; }
-  .menu-btn { font-size:1.5em; cursor:pointer; display:block; }
-  nav { position:fixed; top:0; right:-250px; width:250px; height:100%; background:#333; color:white; transition:0.3s; padding-top:60px; z-index:99; }
-  nav a { display:block; color:white; text-decoration:none; padding:15px 20px; border-bottom:1px solid #444; }
-  nav a:hover { background:#444; }
-  nav .close-btn { position:absolute; top:10px; right:15px; font-size:1.5em; cursor:pointer; }
-  main { padding:80px 20px 20px 20px; }
-  .hidden { display:none; }
-  .page { display:none; background:white; padding:20px; border-radius:5px; margin-bottom:20px; }
-  .page.active { display:block; }
-  .admin-panel { display:none; background:#eee; padding:20px; border-radius:5px; }
-  .user-list, .messages, .notifications, .products, .events { margin-top:20px; }
-  input, select, textarea, button { padding:5px; margin:5px 0; width:100%; }
-  button { cursor:pointer; background:#222; color:white; border:none; border-radius:3px; }
+/* ——— Temel ——— */
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color:#000; color:#fff; }
+header { position:fixed; top:0; width:100%; background-color:rgba(0,0,0,0.85); padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center; z-index:999; }
+.logo { width:60px; height:40px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+nav a { margin-left:2rem; text-decoration:none; color:#fff; font-weight:500; font-size:1rem; transition:color 0.3s ease; }
+nav a:hover { text-decoration:underline; }
+.hero { height:100vh; background:url('https://r.resimlink.com/8mRBNdDCfeZ.jpeg') no-repeat center center/cover; display:flex; align-items:center; justify-content:center; text-align:center; padding:2rem; margin-top:80px; }
+.hero h1 { font-size:3rem; background:rgba(0,0,0,0.6); padding:1rem 2rem; border-radius:10px; }
+main { max-width:1100px; margin:0 auto; padding:4rem 2rem; text-align:center; }
+section { margin-bottom:4rem; }
+.about-section { position:relative; overflow:hidden; color:white; min-height:600px; }
+.about-section video { position:absolute; top:0; left:0; min-width:100%; min-height:100%; z-index:-1; object-fit:cover; }
+.about-content { position:relative; z-index:2; background-color:rgba(0,0,0,0.6); padding:2rem; border-radius:10px; text-align:left; }
+.socials a { margin:0 1rem; color:#fff; text-decoration:none; font-weight:600; font-size:1.1rem; transition:color 0.3s ease; }
+.socials a:hover { color:#0ff; }
+footer { text-align:center; padding:2rem; border-top:1px solid #333; font-size:0.9rem; }
+
+/* Sidebar */
+.hamburger { font-size:26px; cursor:pointer; color:#fff; margin-left:12px; }
+.sidebar { position:fixed; right:-360px; top:0; width:360px; height:100vh; background:#0b0b0b; box-shadow:-6px 0 24px rgba(0,0,0,0.6); padding:20px; transition:right .28s ease; z-index:1500; overflow-y:auto; }
+.sidebar.open{ right:0; }
+.sidebar h3{ margin-bottom:12px; color:#fff; display:flex; justify-content:space-between; align-items:center; }
+.sidebar .close-btn{ cursor:pointer; font-size:22px; }
+.sidebar .menu-item{ display:block; padding:12px 10px; border-radius:6px; color:#ddd; text-decoration:none; margin-bottom:6px; background:transparent; border:1px solid rgba(255,255,255,0.03); }
+.sidebar .menu-item:hover{ color:#000; background:#fff; }
+.sidebar .section-title{ margin-top:10px; color:#aaa; font-size:13px; margin-bottom:6px; }
+
+/* Sayfa içerikleri */
+.page { display:none; text-align:left; }
+.page.active{ display:block; }
+
+/* Auth */
+#authRow { display:flex; gap:2rem; align-items:flex-start; justify-content:center; margin-top:20px; }
+#registerBox, #loginBox { background:rgba(255,255,255,0.03); padding:12px; border-radius:8px; border:1px solid #222; }
+#registerBox input, #loginBox input { padding:0.5rem; margin:0.3rem 0; width:220px; border-radius:5px; border:1px solid #333; background:transparent; color:#fff; }
+#registerBox button, #loginBox button { padding:0.5rem 1rem; margin-top:8px; cursor:pointer; border-radius:6px; border:none; background:#fff; color:#000; font-weight:700; }
+#userBox { margin-top:30px; }
+
+/* Responsive */
+@media(max-width:900px){
+  main{ padding:2rem 1rem; }
+  #authRow{ flex-direction:column; align-items:center; }
+  .sidebar{ width:100%; right:-100%; }
+  .sidebar.open{ right:0; }
+}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Wooziedev</h1>
-  <span class="menu-btn" onclick="openMenu()">☰</span>
+  <div style="display:flex; align-items:center;">
+    <div class="logo" aria-label="W Logo" onclick="location.href='#home'">
+      <svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 35 L20 5 L30 35 L40 5 L50 35" stroke="#fff" stroke-width="5" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <nav style="margin-left:12px;">
+      <a href="#home" onclick="openPage('home')">Ana Sayfa</a>
+      <a href="#about" onclick="openPage('about')">Hakkımda</a>
+      <a href="#contact" onclick="openPage('contact')">İletişim</a>
+    </nav>
+  </div>
+  <div style="display:flex; align-items:center;">
+    <div class="hamburger" onclick="toggleSidebar()">☰</div>
+  </div>
 </header>
 
-<nav id="sideMenu">
-  <span class="close-btn" onclick="closeMenu()">×</span>
-  <a href="#" onclick="showPage('settings')">Ayarlar</a>
-  <a href="#" onclick="showPage('events')">Event</a>
-  <a href="#" onclick="showPage('products')">Ürünler</a>
-  <a href="#" onclick="showPage('profile')">Profil</a>
-  <a href="#" onclick="showPage('about')">Hakkımda</a>
-  <a href="#" onclick="showPage('dm')">DM</a>
-  <a href="#" onclick="showPage('notifications')">Bildirimler</a>
-</nav>
+<section class="hero page" id="home">
+  <h1>wooziedev</h1>
+</section>
 
 <main>
-  <div id="loginPage" class="page active">
-    <h2>Giriş Yap</h2>
-    <input type="email" id="loginEmail" placeholder="E-posta">
-    <input type="password" id="loginPass" placeholder="Şifre">
-    <button onclick="login()">Giriş</button>
-    <p id="loginError" style="color:red;"></p>
-  </div>
-
-  <div id="settings" class="page">
-    <h2>Ayarlar</h2>
-    <p>Kullanıcı ayarları burada olacak.</p>
-  </div>
-
-  <div id="events" class="page">
-    <h2>Eventler</h2>
-    <div class="events" id="eventsList"></div>
-    <div id="adminEvents" class="admin-panel">
-      <h3>Admin Event Kontrol</h3>
-      <input type="text" id="eventName" placeholder="Event adı">
-      <input type="text" id="eventWinner" placeholder="Birinci Takım">
-      <button onclick="addEvent()">Ekle</button>
+  <section id="about" class="about-section page">
+    <video autoplay muted loop playsinline>
+      <source src="https://cdn.streamable.com/video/mp4/f5/f55ocn.mp4" type="video/mp4">
+      Tarayıcın video etiketini desteklemiyor.
+    </video>
+    <div class="about-content">
+      <h2>Hakkımda</h2>
+      <p>Merhaba, ben Ata Göçke, yani bilinen adıyla WoozieDev...</p>
     </div>
-  </div>
+  </section>
 
-  <div id="products" class="page">
-    <h2>Ürünler</h2>
-    <div class="products" id="productList"></div>
-    <div id="adminProducts" class="admin-panel">
-      <h3>Admin Ürün Kontrol</h3>
-      <input type="text" id="productName" placeholder="Ürün adı">
-      <input type="number" id="productPrice" placeholder="Fiyat">
-      <input type="number" id="productStock" placeholder="Stok">
-      <button onclick="addProduct()">Ekle</button>
+  <section id="contact" class="page">
+    <h2>İletişim</h2>
+    <div class="socials">
+      <a href="https://instagram.com/wooziedev" target="_blank">Instagram</a>
+      <a href="https://twitter.com/wooziedev" target="_blank">Twitter</a>
+      <a href="https://www.tiktok.com/@wooziedev" target="_blank">TikTok</a>
     </div>
-  </div>
+    <p>E-posta: <a href="mailto:wooziedevs@gmail.com" style="color:#fff;">wooziedevs@gmail.com</a></p>
+  </section>
 
-  <div id="profile" class="page">
-    <h2>Profil</h2>
-    <p>Kullanıcı bilgileri ve düzenleme burada olacak.</p>
-  </div>
-
-  <div id="about" class="page">
-    <h2>Hakkımda</h2>
-    <p>Hakkımda bilgisi burada olacak.</p>
-  </div>
-
-  <div id="dm" class="page">
-    <h2>DM Sistemi</h2>
-    <input type="text" id="friendName" placeholder="Arkadaş ekle">
-    <button onclick="addFriend()">Ekle</button>
-    <div class="user-list" id="friendsList"></div>
-    <div class="messages" id="chatBox"></div>
-    <input type="text" id="messageInput" placeholder="Mesaj yaz">
-    <button onclick="sendMessage()">Gönder</button>
-  </div>
-
-  <div id="notifications" class="page">
-    <h2>Bildirimler</h2>
-    <div class="notifications" id="notificationList"></div>
-    <div id="adminNotifications" class="admin-panel">
-      <h3>Admin Bildirim Gönder</h3>
-      <input type="text" id="notifyUser" placeholder="Kullanıcı adı (boş ise toplu)">
-      <textarea id="notifyMsg" placeholder="Mesaj"></textarea>
-      <button onclick="sendNotification()">Gönder</button>
+  <!-- Üyelik -->
+  <section id="auth" class="page">
+    <h2>Üyelik Sistemi</h2>
+    <div id="authRow">
+      <div id="registerBox">
+        <h3>Kayıt Ol</h3>
+        <input type="text" id="regUsername" placeholder="Kullanıcı adı"><br>
+        <input type="email" id="regEmail" placeholder="E-mail"><br>
+        <input type="password" id="regPassword" placeholder="Şifre"><br>
+        <button onclick="register()">Kayıt Ol</button>
+      </div>
+      <div id="loginBox">
+        <h3>Giriş Yap</h3>
+        <input type="email" id="loginEmail" placeholder="E-mail"><br>
+        <input type="password" id="loginPassword" placeholder="Şifre"><br>
+        <button onclick="login()">Giriş</button>
+        <button onclick="resetPassword()" style="background:#333;color:#fff;margin-left:8px;">Şifremi Unuttum</button>
+      </div>
     </div>
-  </div>
+    <div id="userBox" style="display:none;">
+      <p>Hoşgeldin, <span id="userEmail"></span> (<span id="userName"></span>)</p>
+      <button onclick="logout()">Çıkış Yap</button>
+    </div>
+  </section>
+
+  <!-- Admin panel -->
+  <section id="adminPanel" class="page">
+    <h2>Admin Panel</h2>
+    <div id="adminContent">
+      <p>Buradan kullanıcılar, DM’ler, geri bildirimler, ürünler ve etkinlikler yönetilebilir.</p>
+    </div>
+  </section>
 </main>
 
-<script>
-let currentUser = null;
-let users = [];
-let friends = [];
-let messages = {};
-let notifications = [];
-let products = [];
-let events = [];
+<footer>
+  &copy;  2025 WoozieDev
+</footer>
 
-function openMenu(){ document.getElementById('sideMenu').style.right='0'; }
-function closeMenu(){ document.getElementById('sideMenu').style.right='-250px'; }
+<!-- Sidebar -->
+<div id="sidebar" class="sidebar">
+  <h3>Menü <span class="close-btn" onclick="toggleSidebar()">✖</span></h3>
+  <a href="#" class="menu-item" onclick="openPage('home')">Ana Sayfa</a>
+  <a href="#" class="menu-item" onclick="openPage('about')">Hakkımda</a>
+  <a href="#" class="menu-item" onclick="openPage('contact')">İletişim</a>
+  <a href="#" class="menu-item" id="adminMenu" style="display:none;" onclick="openPage('adminPanel')">Admin Panel</a>
+</div>
 
-function showPage(page){
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+/* Firebase config */
+const firebaseConfig = {
+  apiKey: "AIzaSyBRWCBCSNCLv2Mgz-8OAxTE_hHTcDPW9tE",
+  authDomain: "wooziedevsite.firebaseapp.com",
+  projectId: "wooziedevsite",
+  storageBucket: "wooziedevsite.appspot.com",
+  messagingSenderId: "181692137747",
+  appId: "1:181692137747:web:f773cfb5d4db225e70dae6",
+  measurementId: "G-MN27FH3XC4"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+/* Sidebar toggle */
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  sidebar.classList.toggle('open');
+}
+
+/* Sayfa açma */
+window.openPage = function(pageId){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(page).classList.add('active');
-  closeMenu();
-  if(page==='products') renderProducts();
-  if(page==='events') renderEvents();
-  if(page==='dm') renderFriends();
-  if(page==='notifications') renderNotifications();
+  const page = document.getElementById(pageId);
+  if(page) page.classList.add('active');
+  toggleSidebar(); // Menü kapat
 }
 
-function login(){
+/* Üyelik işlemleri */
+window.register = async function(){
+  const username = document.getElementById('regUsername').value;
+  const email = document.getElementById('regEmail').value;
+  const password = document.getElementById('regPassword').value;
+  if(!username || !email || !password) return alert("Tüm alanları doldurun.");
+  try{
+    const userCredential = await createUserWithEmailAndPassword(auth,email,password);
+    await setDoc(doc(db,"users",userCredential.user.uid),{username,email,isAdmin:false});
+    alert("Kayıt başarılı!");
+  }catch(e){alert(e.message);}
+}
+
+window.login = async function(){
   const email = document.getElementById('loginEmail').value;
-  const pass = document.getElementById('loginPass').value;
-  if(email==='wooziedevs@gmail.com' && pass==='Ali006940'){
-    currentUser='admin';
-    document.getElementById('loginPage').classList.remove('active');
-    alert('Admin girişi başarılı!');
-  } else {
-    currentUser=email;
-    document.getElementById('loginPage').classList.remove('active');
-    alert('Giriş başarılı!');
-  }
-  updateAdminPanels();
+  const password = document.getElementById('loginPassword').value;
+  try{
+    const userCredential = await signInWithEmailAndPassword(auth,email,password);
+    document.getElementById('userBox').style.display = "block";
+    document.getElementById('userEmail').innerText = email;
+    const docSnap = await getDoc(doc(db,"users",userCredential.user.uid));
+    const data = docSnap.data();
+    document.getElementById('userName').innerText = data.username;
+    if(email==="wooziedev@gmail.com") document.getElementById('adminMenu').style.display="block";
+    openPage('home');
+  }catch(e){alert(e.message);}
 }
 
-function updateAdminPanels(){
-  if(currentUser==='admin'){
-    document.querySelectorAll('.admin-panel').forEach(a=>a.style.display='block');
-  }
+window.logout = function(){
+  signOut(auth);
+  document.getElementById('userBox').style.display="none";
+  document.getElementById('adminMenu').style.display="none";
+  alert("Çıkış yapıldı.");
 }
 
-function addProduct(){
-  const name = document.getElementById('productName').value;
-  const price = document.getElementById('productPrice').value;
-  const stock = document.getElementById('productStock').value;
-  products.push({name, price, stock});
-  renderProducts();
+window.resetPassword = function(){
+  const email = document.getElementById('loginEmail').value;
+  if(!email) return alert("E-mail giriniz.");
+  sendPasswordResetEmail(auth,email)
+    .then(()=>alert("Şifre sıfırlama e-postası gönderildi."))
+    .catch(e=>alert(e.message));
 }
 
-function renderProducts(){
-  const list = document.getElementById('productList');
-  list.innerHTML='';
-  products.forEach(p=>{
-    list.innerHTML+=`<p>${p.name} - Fiyat: ${p.price}₺ - Stok: ${p.stock}</p>`;
-  });
-}
-
-function addEvent(){
-  const name = document.getElementById('eventName').value;
-  const winner = document.getElementById('eventWinner').value;
-  events.push({name,winner});
-  renderEvents();
-}
-
-function renderEvents(){
-  const list = document.getElementById('eventsList');
-  list.innerHTML='';
-  events.forEach(e=>{
-    list.innerHTML+=`<p>${e.name} - Birinci: ${e.winner}</p>`;
-  });
-}
-
-function addFriend(){
-  const name = document.getElementById('friendName').value;
-  if(name && !friends.includes(name)) friends.push(name);
-  messages[name] = messages[name] || [];
-  renderFriends();
-}
-
-function renderFriends(){
-  const list = document.getElementById('friendsList');
-  list.innerHTML='';
-  friends.forEach(f=>{
-    list.innerHTML+=`<p onclick="selectFriend('${f}')">${f}</p>`;
-  });
-}
-
-let activeFriend = null;
-function selectFriend(friend){
-  activeFriend = friend;
-  renderChat();
-}
-
-function sendMessage(){
-  if(!activeFriend) return alert('Önce arkadaş seçin');
-  const msg = document.getElementById('messageInput').value;
-  if(!messages[activeFriend]) messages[activeFriend]=[];
-  messages[activeFriend].push({from:currentUser, msg});
-  renderChat();
-  document.getElementById('messageInput').value='';
-}
-
-function renderChat(){
-  const box = document.getElementById('chatBox');
-  box.innerHTML='';
-  if(!activeFriend) return;
-  messages[activeFriend].forEach(m=>{
-    box.innerHTML+=`<p><strong>${m.from}:</strong> ${m.msg}</p>`;
-  });
-}
-
-function sendNotification(){
-  const user = document.getElementById('notifyUser').value;
-  const msg = document.getElementById('notifyMsg').value;
+/* Auth state */
+onAuthStateChanged(auth,user=>{
   if(user){
-    notifications.push({to:user, msg});
-  } else {
-    notifications.push({to:'all', msg});
+    document.getElementById('userBox').style.display="block";
+    document.getElementById('userEmail').innerText = user.email;
+    getDoc(doc(db,"users",user.uid)).then(docSnap=>{
+      const data = docSnap.data();
+      document.getElementById('userName').innerText = data.username;
+      if(user.email==="wooziedev@gmail.com") document.getElementById('adminMenu').style.display="block";
+    });
   }
-  renderNotifications();
-}
+});
 
-function renderNotifications(){
-  const list = document.getElementById('notificationList');
-  list.innerHTML='';
-  notifications.forEach(n=>{
-    if(n.to==='all' || n.to===currentUser) list.innerHTML+=`<p>${n.msg}</p>`;
-  });
-}
 </script>
-
 </body>
 </html>
