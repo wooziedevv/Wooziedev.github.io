@@ -1,256 +1,237 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wooziedev</title>
-<link rel="icon" href="https://i.hizliresim.com/sv3jcht.png">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Wooziedev — Demo</title>
+<link rel="icon" href="https://i.hizliresim.com/sv3jcht.png" type="image/png">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#000;color:#fff;}
-header{position:fixed;top:0;width:100%;background:rgba(0,0,0,0.85);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;z-index:999;}
-.logo{width:60px;height:40px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-nav a{margin-left:2rem;text-decoration:none;color:#fff;font-weight:500;font-size:1rem;transition:color 0.3s;}
-nav a:hover{text-decoration:underline;}
-.hero{height:80vh;background:url('https://r.resimlink.com/8mRBNdDCfeZ.jpeg') no-repeat center/cover;display:flex;align-items:center;justify-content:center;text-align:center;padding:2rem;margin-top:80px;}
-.hero h1{font-size:3rem;background:rgba(0,0,0,0.6);padding:1rem 2rem;border-radius:10px;}
-main{max-width:1000px;margin:0 auto;padding:4rem 2rem;text-align:center;}
-section{margin-bottom:4rem;}
-footer{text-align:center;padding:2rem;border-top:1px solid #333;font-size:0.9rem;}
+  *{box-sizing:border-box}
+  body{font-family:'Segoe UI', Tahoma, Verdana, sans-serif;background:#000;color:#fff;margin:0}
+  header{position:fixed;top:0;width:100%;background:rgba(0,0,0,.85);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;z-index:999}
+  .logo{display:flex;align-items:center;gap:8px;cursor:pointer}
+  nav a{color:#fff;text-decoration:none;margin-left:1rem}
+  .hero{height:100vh;background:url('https://r.resimlink.com/8mRBNdDCfeZ.jpeg') center/cover no-repeat;display:flex;align-items:center;justify-content:center;margin-top:80px}
+  .hero h1{font-size:3rem;background:rgba(0,0,0,.6);padding:1rem 2rem;border-radius:10px}
+  main{max-width:1100px;margin:0 auto;padding:4rem 2rem;text-align:center}
+  .about-content{position:relative;z-index:2;background:rgba(0,0,0,.6);padding:2rem;border-radius:10px;text-align:left}
+  footer{text-align:center;padding:2rem;border-top:1px solid #333;font-size:.9rem}
 
-/* Sidebar */
-.sidebar{position:fixed;left:-300px;top:0;width:300px;height:100%;background:#111;padding:2rem;transition:0.3s;overflow-y:auto;z-index:9999;}
-.sidebar.active{left:0;}
-.sidebar h2{margin-bottom:1rem;}
-.sidebar a{display:block;color:#fff;text-decoration:none;padding:0.5rem 0;transition:0.3s;}
-.sidebar a:hover{color:#0ff;}
-.sidebar .close{position:absolute;top:1rem;right:1rem;cursor:pointer;font-size:1.5rem;color:#fff;}
+  /* Auth row */
+  #authRow{display:flex;gap:20px;justify-content:center;margin-top:20px}
+  #registerBox,#loginBox{background:rgba(255,255,255,0.03);padding:12px;border-radius:8px;border:1px solid #222}
+  #registerBox input,#loginBox input{display:block;padding:.5rem;margin:.3rem 0;width:220px;border-radius:6px;border:1px solid #333;background:transparent;color:#fff}
+  #registerBox button,#loginBox button{padding:.5rem 1rem;margin-top:8px;border-radius:6px;border:none;background:#fff;color:#000;font-weight:700;cursor:pointer}
+  #userBox{margin-top:20px;display:none}
 
-/* Auth UI */
-#registerBox,#loginBox,#userBox{margin-top:30px;}
-input,textarea{padding:0.5rem;margin:0.3rem 0;width:220px;}
-textarea{resize:none;}
-button{padding:0.5rem 1rem;margin:0.5rem;cursor:pointer;}
+  /* Sidebar */
+  .hamburger{font-size:22px;cursor:pointer;margin-left:12px}
+  .notif-bell{cursor:pointer;margin-right:12px;position:relative}
+  .notif-count{position:absolute;top:-8px;right:-6px;background:#ff4d4d;color:#000;padding:2px 6px;border-radius:12px;font-weight:700;font-size:12px;display:none}
+  .sidebar{position:fixed;right:-420px;top:0;width:420px;height:100vh;background:#090909;box-shadow:-8px 0 36px rgba(0,0,0,.6);transition:right .25s ease;z-index:1200;padding:16px;overflow:auto;}
+  .sidebar.open{right:0}
+  .sidebar .closeX{position:absolute;left:12px;top:12px;cursor:pointer;color:#fff}
+  .sidebar h3{margin-top:0}
+  .menu-item{display:block;padding:12px;border-radius:8px;margin:6px 0;background:transparent;color:#ddd;text-decoration:none;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+  .menu-item:hover{background:#fff;color:#000}
+  .panel{display:none;text-align:left;margin-top:12px}
+  .panel.active{display:block}
+  .profile-card{background:rgba(255,255,255,0.03);padding:12px;border-radius:8px}
+  .profile-card img{width:96px;height:96px;border-radius:50%;object-fit:cover;border:2px solid #fff;display:block;margin-bottom:8px}
+  #interactiveArea{display:none;margin-top:20px}
+  .chat-layout{display:flex;gap:18px;justify-content:center}
+  .chat-box{background:rgba(255,255,255,0.02);border:1px solid #222;padding:12px;border-radius:8px;width:48%}
+  #globalChat,#dmBox{height:260px;overflow:auto;padding:8px;background:transparent}
+  .msg{padding:6px;border-bottom:1px dashed rgba(255,255,255,.03);margin-bottom:6px}
+  #searchResults li{list-style:none;padding:8px;border-bottom:1px solid #222;cursor:pointer}
+  #adminModal{position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:1400}
+  #adminModal .box{background:#111;padding:20px;border-radius:10px;max-width:420px;width:90%}
 
-/* Chat */
-#chatBox{border:1px solid #333;padding:1rem;height:300px;overflow-y:auto;margin-top:1rem;}
-#chatInput{width:calc(100% - 90px);padding:0.5rem;}
-#chatSend{padding:0.5rem;}
+  @media(max-width:800px){
+    .sidebar{width:100%;right:-100%}
+    .chat-layout{flex-direction:column}
+    .chat-box{width:100%}
+    #registerBox,#loginBox input{width:100%}
+  }
 </style>
 </head>
 <body>
 
 <header>
-<div class="logo" onclick="toggleSidebar()">
-<svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M10 35 L20 5 L30 35 L40 5 L50 35" stroke="#fff" stroke-width="5" stroke-linejoin="round"/>
-</svg>
-</div>
-<nav>
-<a href="#home">Ana Sayfa</a>
-<a href="#contact">İletişim</a>
-</nav>
+  <div style="display:flex;align-items:center">
+    <div class="logo" onclick="location.hash='#home'">
+      <svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 35 L20 5 L30 35 L40 5 L50 35" stroke="#fff" stroke-width="5" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <nav style="margin-left:12px">
+      <a href="#home">Ana Sayfa</a>
+      <a href="#about">Hakkımda</a>
+      <a href="#contact">İletişim</a>
+    </nav>
+  </div>
+  <div style="display:flex;align-items:center">
+    <div class="notif-bell" onclick="openPanelAndCloseSidebar('notifs')">🔔<span id="notifCount" class="notif-count">0</span></div>
+    <div class="hamburger" onclick="toggleSidebar()">☰</div>
+  </div>
 </header>
 
-<div class="sidebar" id="sidebar">
-<span class="close" onclick="toggleSidebar()">✖</span>
-<h2>Menü</h2>
-<div id="menuItems">
-<a href="#" onclick="showSection('profile')">Profil</a>
-<a href="#" onclick="showSection('settings')">Ayarlar</a>
-<a href="#" onclick="showSection('products')">Ürünler</a>
-<a href="#" onclick="showSection('scrim')">Scrim & Event</a>
-<a href="#" onclick="showSection('chat')">Sohbet</a>
-</div>
-</div>
-
-<section class="hero" id="home">
-<h1>wooziedev</h1>
-</section>
+<section class="hero" id="home"><h1>wooziedev</h1></section>
 
 <main>
-<section id="auth">
-<h2>Üyelik Sistemi</h2>
+  <section id="about" class="about-section">
+    <video autoplay muted loop playsinline>
+      <source src="https://cdn.streamable.com/video/mp4/f5/f55ocn.mp4" type="video/mp4">
+      Tarayıcın video etiketini desteklemiyor.
+    </video>
+    <div class="about-content">
+      <h2>Hakkımda</h2>
+      <p>Merhaba, ben Ata Göçke, yani bilinen adıyla WoozieDev. Yazılım ve teknoloji benim asıl tutkum.</p>
+    </div>
+  </section>
 
-<div id="registerBox">
-<h3>Kayıt Ol</h3>
-<input type="text" id="regUsername" placeholder="Kullanıcı Adı"><br>
-<input type="email" id="regEmail" placeholder="E-mail"><br>
-<input type="password" id="regPassword" placeholder="Şifre"><br>
-<button onclick="register()">Kayıt Ol</button>
-</div>
+  <section id="auth">
+    <h2>Üyelik Sistemi</h2>
+    <div id="authRow">
+      <div id="registerBox">
+        <h3>Kayıt Ol</h3>
+        <input id="regEmail" type="email" placeholder="E-mail"><br>
+        <input id="regPassword" type="password" placeholder="Şifre"><br>
+        <button onclick="register()">Kayıt Ol</button>
+      </div>
 
-<div id="loginBox">
-<h3>Giriş Yap</h3>
-<input type="email" id="loginEmail" placeholder="E-mail"><br>
-<input type="password" id="loginPassword" placeholder="Şifre"><br>
-<button onclick="login()">Giriş</button>
-<button onclick="resetPassword()">Şifremi Unuttum</button>
-</div>
+      <div id="loginBox">
+        <h3>Giriş Yap</h3>
+        <input id="loginEmail" type="email" placeholder="E-mail"><br>
+        <input id="loginPassword" type="password" placeholder="Şifre"><br>
+        <button onclick="login()">Giriş</button>
+        <button onclick="resetPassword()" style="background:#333;color:#fff;margin-left:8px">Şifremi Unuttum</button>
+      </div>
+    </div>
 
-<div id="userBox" style="display:none;">
-<p>Hoşgeldin, <span id="userEmail"></span> | <span id="userUsername"></span></p>
-<button onclick="logout()">Çıkış Yap</button>
-</div>
-</section>
-
-<section id="profile" style="display:none;">
-<h2>Profil</h2>
-<img id="profilePic" src="" alt="Profil Resmi" width="120" height="120"><br>
-<input type="file" id="profileUpload"><br>
-<label>Hakkında:</label><br>
-<textarea id="aboutText" rows="4" cols="40"></textarea><br>
-<label>Sosyal Medya:</label><br>
-<input type="text" id="insta" placeholder="Instagram"><br>
-<input type="text" id="tiktok" placeholder="TikTok"><br>
-<button onclick="saveProfile()">Kaydet</button>
-</section>
-
-<section id="settings" style="display:none;">
-<h2>Ayarlar</h2>
-<button onclick="sendSystemNotification()">Sistem Bildirimi Gönder</button><br>
-<button onclick="changePassword()">Şifre Değiştir</button>
-</section>
-
-<section id="products" style="display:none;">
-<h2>Ürünler</h2>
-<div id="productList"></div>
-<button onclick="addProduct()">Ürün Ekle (Admin)</button>
-</section>
-
-<section id="scrim" style="display:none;">
-<h2>Scrim & Event</h2>
-<div id="scrimList"></div>
-<button onclick="addScrim()">Ekle (Admin)</button>
-</section>
-
-<section id="chat" style="display:none;">
-<h2>Sohbet</h2>
-<div id="chatBox"></div>
-<input type="text" id="chatInput" placeholder="Mesajınız..."><button id="chatSend" onclick="sendMessage()">Gönder</button>
-</section>
-
-<section id="contact">
-<h2>İletişim</h2>
-<p>Sosyal medya üzerinden bana ulaşabilirsiniz:</p>
-<div>
-<a href="https://instagram.com/wooziedev" target="_blank">Instagram</a> |
-<a href="https://twitter.com/wooziedev" target="_blank">Twitter</a> |
-<a href="https://www.tiktok.com/@wooziedev" target="_blank">TikTok</a>
-</div>
-<p>E-posta: <a href="mailto:wooziedevs@gmail.com" style="color:#fff;">wooziedevs@gmail.com</a></p>
-</section>
-
+    <div id="userBox" style="margin-top:10px">
+      <p>Hoşgeldin, <span id="userEmail"></span></p>
+      <button onclick="logout()">Çıkış Yap</button>
+    </div>
+  </section>
 </main>
 
+<!-- Sidebar (admin panel için) -->
+<div id="sidebar" class="sidebar" aria-hidden="true">
+  <div style="display:flex;justify-content:flex-end">
+    <span class="closeX" onclick="toggleSidebar()">✕</span>
+  </div>
+  <h3>Menü</h3>
+  <div style="margin-top:10px">
+    <button onclick="openAdminModal()">Admin Girişi</button>
+    <button id="adminPanelBtn" style="display:none" onclick="openPanelAndCloseSidebar('admin')">Admin Panel</button>
+  </div>
+  <div id="panel-admin" class="panel">
+    <h3>Admin Panel</h3>
+    <div style="display:flex;gap:8px">
+      <div style="flex:1">
+        <h4>Profil Kartı</h4>
+        <div class="profile-card">
+          <img src="https://i.pravatar.cc/150" alt="Admin">
+          <strong>Ata Göçke</strong>
+          <p>WoozieDev</p>
+        </div>
+      </div>
+      <div style="flex:1">
+        <h4>Etkinlikler</h4>
+        <ul id="activityList">
+          <li>Yeni kullanıcı kaydı</li>
+          <li>Mesaj gönderildi</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Admin Modal -->
+<div id="adminModal">
+  <div class="box">
+    <h3>Admin Girişi</h3>
+    <input id="adminEmail" type="email" placeholder="E-mail" style="width:100%;padding:.5rem;margin:.5rem 0;border-radius:6px;border:1px solid #333;background:transparent;color:#fff"><br>
+    <input id="adminPassword" type="password" placeholder="Şifre" style="width:100%;padding:.5rem;margin:.5rem 0;border-radius:6px;border:1px solid #333;background:transparent;color:#fff"><br>
+    <button onclick="adminLogin()">Giriş Yap</button>
+  </div>
+</div>
+
 <footer>
-&copy; 2025 WoozieDev
+  <p>&copy; 2025 Wooziedev. Tüm hakları saklıdır.</p>
 </footer>
 
-<script type="module">
-// Firebase importları
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-
-const firebaseConfig = {
-apiKey: "API_KEY",
-authDomain: "PROJECT_ID.firebaseapp.com",
-projectId: "PROJECT_ID",
-storageBucket: "PROJECT_ID.appspot.com",
-messagingSenderId: "SENDER_ID",
-appId: "APP_ID"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-function toggleSidebar(){document.getElementById("sidebar").classList.toggle("active");}
-function showSection(id){document.querySelectorAll("main section").forEach(s=>s.style.display="none");document.getElementById(id).style.display="block";}
-
-// Kullanıcı kayıt
-window.register = async ()=>{
-let username=document.getElementById("regUsername").value.trim();
-let email=document.getElementById("regEmail").value.trim();
-let password=document.getElementById("regPassword").value.trim();
-if(!username || !email || !password){alert("Tüm alanları doldurun."); return;}
-const usernameDoc=await getDoc(doc(db,"usernames",username));
-if(usernameDoc.exists()){alert("Kullanıcı adı alınmış!"); return;}
-try{
-const cred=await createUserWithEmailAndPassword(auth,email,password);
-await setDoc(doc(db,"users",cred.user.uid),{email:email,username:username,about:"",social:{insta:"",tiktok:""}});
-await setDoc(doc(db,"usernames",username),{uid:cred.user.uid});
-alert("Kayıt başarılı!");
-}catch(e){alert(e.message);}
-};
-
-// Kullanıcı girişi
-window.login=async()=>{
-let email=document.getElementById("loginEmail").value.trim();
-let password=document.getElementById("loginPassword").value.trim();
-try{await signInWithEmailAndPassword(auth,email,password);}catch(e){alert(e.message);}
-};
-window.logout=()=>signOut(auth);
-window.resetPassword=()=>{let email=document.getElementById("loginEmail").value; if(!email)return alert("Email giriniz."); sendPasswordResetEmail(auth,email).then(()=>alert("Şifre yenileme maili gönderildi.")) .catch(err=>alert(err.message));};
-
-// Profil kaydet
-window.saveProfile=async ()=>{
-const user = auth.currentUser;
-if(!user){alert("Giriş yapın"); return;}
-const about=document.getElementById("aboutText").value;
-const insta=document.getElementById("insta").value;
-const tiktok=document.getElementById("tiktok").value;
-await setDoc(doc(db,"users",user.uid),{about, social:{insta,tiktok}}, {merge:true});
-alert("Profil kaydedildi!");
-};
-
-// Şifre değiştir
-window.changePassword=async ()=>{
-const user=auth.currentUser;
-if(!user){alert("Giriş yapın"); return;}
-let newPass=prompt("Yeni şifre girin:");
-if(!newPass)return;
-user.updatePassword(newPass).then(()=>alert("Şifre değiştirildi!")).catch(err=>alert(err.message));
-};
-
-// Sistem bildirimi
-window.sendSystemNotification=()=>{alert("Sistem bildirimi demo!");};
-
-// Global chat (demo localStorage)
-window.sendMessage=()=>{
-const msgInput=document.getElementById("chatInput");
-const msg=msgInput.value.trim(); if(!msg)return;
-const user=auth.currentUser; if(!user)return alert("Giriş yapın");
-const messages=JSON.parse(localStorage.getItem("messages")||"[]");
-messages.push({user:user.uid, text:msg});
-localStorage.setItem("messages",JSON.stringify(messages));
-renderChat(); msgInput.value="";
-};
-function renderChat(){
-const chatBox=document.getElementById("chatBox");
-chatBox.innerHTML="";
-const messages=JSON.parse(localStorage.getItem("messages")||"[]");
-messages.forEach(m=>{
-let div=document.createElement("div"); div.textContent=m.user+": "+m.text; chatBox.appendChild(div);
-}); chatBox.scrollTop=chatBox.scrollHeight;
+<script>
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open')}
+function openPanelAndCloseSidebar(panelId){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+panelId).classList.add('active');
+  toggleSidebar();
 }
 
-// Auth state
-onAuthStateChanged(auth,async user=>{
-if(user){
-document.getElementById("loginBox").style.display="none";
-document.getElementById("registerBox").style.display="none";
-document.getElementById("userBox").style.display="block";
-const userDoc=await getDoc(doc(db,"users",user.uid));
-if(userDoc.exists()){document.getElementById("userEmail").textContent=user.email; document.getElementById("userUsername").textContent=userDoc.data().username;}
-}else{
-document.getElementById("loginBox").style.display="block";
-document.getElementById("registerBox").style.display="block";
-document.getElementById("userBox").style.display="none";
+// Basit e-mail tabanlı auth (localStorage)
+function register(){
+  const email=document.getElementById('regEmail').value;
+  const password=document.getElementById('regPassword').value;
+  if(!email||!password){alert('E-mail ve şifre giriniz');return;}
+  localStorage.setItem('userEmail',email);
+  localStorage.setItem('userPassword',password);
+  alert('Kayıt başarılı!');
+  showUserBox(email);
 }
-renderChat();
-});
+
+function login(){
+  const email=document.getElementById('loginEmail').value;
+  const password=document.getElementById('loginPassword').value;
+  const savedEmail=localStorage.getItem('userEmail');
+  const savedPassword=localStorage.getItem('userPassword');
+  if(email===savedEmail&&password===savedPassword){alert('Giriş başarılı!');showUserBox(email);}
+  else{alert('E-mail veya şifre hatalı!');}
+}
+
+function logout(){
+  document.getElementById('userBox').style.display='none';
+  document.getElementById('loginBox').style.display='block';
+  document.getElementById('registerBox').style.display='block';
+}
+
+function resetPassword(){
+  const email=prompt("Şifre sıfırlamak için kayıtlı e-mailinizi giriniz:");
+  const savedEmail=localStorage.getItem('userEmail');
+  if(email===savedEmail){
+    const newPass=prompt("Yeni şifrenizi girin:");
+    localStorage.setItem('userPassword',newPass);
+    alert("Şifreniz güncellendi!");
+  }else{alert("E-mail kayıtlı değil!");}
+}
+
+function showUserBox(email){
+  document.getElementById('userEmail').innerText=email;
+  document.getElementById('userBox').style.display='block';
+  document.getElementById('loginBox').style.display='none';
+  document.getElementById('registerBox').style.display='none';
+}
+
+// Admin giriş modalı
+function openAdminModal(){document.getElementById('adminModal').style.display='flex'}
+function adminLogin(){
+  const email=document.getElementById('adminEmail').value;
+  const password=document.getElementById('adminPassword').value;
+  // sadece örnek: wooziedev@gmail.com & şifre: admin123
+  if(email==='wooziedev@gmail.com'&&password==='admin123'){
+    alert('Admin girişi başarılı!');
+    document.getElementById('adminPanelBtn').style.display='inline-block';
+    document.getElementById('adminModal').style.display='none';
+  }else{alert('Admin e-mail veya şifre hatalı!');}
+}
+
+// Sayfa yüklenince kullanıcıyı otomatik kontrol et
+window.onload=function(){
+  const savedEmail=localStorage.getItem('userEmail');
+  const savedPassword=localStorage.getItem('userPassword');
+  if(savedEmail&&savedPassword){showUserBox(savedEmail);}
+}
 </script>
 
 </body>
