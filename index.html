@@ -318,8 +318,6 @@
   <div id="adminModal">
     <div class="box">
       <h3>Admin Girişi</h3>
-      <p>:</p>
-      
       <input id="adminUser" class="input" placeholder="Admin kullanıcı adı">
       <input id="adminPass" type="password" class="input" placeholder="Admin şifre">
       <div style="display:flex;gap:8px;margin-top:8px">
@@ -345,7 +343,7 @@ function _set(key,val){ localStorage.setItem(key, JSON.stringify(val)); }
       uid: 'admin-uid',
       username: 'wooziedev',
       email: 'admin@local',
-      password: 'Ali006940', // demo only
+      password: 'Ati1234', // demo only
       about: 'Site sahibi admin.',
       profileImg: '',
       instagram:'wooziedev',
@@ -677,7 +675,7 @@ function adminLogin(){
   const u = document.getElementById('adminUser').value.trim();
   const p = document.getElementById('adminPass').value;
   // DEMO CHECK (THIS IS INSECURE, for demo only)
-  if(u === '' && p === ''){
+  if(u === 'wooziedev' && p === 'Ali006940'){
     localStorage.setItem('isAdmin', '1');
     document.getElementById('adminPanelBtn').style.display = 'inline-block';
     closeAdminModal();
