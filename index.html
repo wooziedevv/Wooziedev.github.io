@@ -81,8 +81,6 @@
     <path d="M120 30 L190 30 L190 60 L160 60 L160 90 L190 90 L190 120 L160 120 L160 180 L120 180 Z" fill="#ffffff"/>
   </svg>
 </div>
-<!-- HERO (original) -->
-      <section class="hero" id="home"><h1>NexuForge</h1></section>
       
       <nav style="margin-left:12px">
         <a href="#home">Ana Sayfa</a>
@@ -97,6 +95,9 @@
     </div>
   </header>
 
+  <!-- HERO (original) -->
+  <section class="hero" id="home"><h1>NexuForge</h1></section>
+
   <main>
     <!-- ABOUT (original) -->
     <section id="about" class="about-section">
@@ -105,7 +106,7 @@
         Tarayıcın video etiketini desteklemiyor.
       </video>
       <div class="about-content">
-        <h2>Hakkımızda</h2>
+        <h2>Hakkımda</h2>
         <p>Merhaba, ben Ata Göçke, yani bilinen adıyla WoozieDev. yazılım ve teknoloji benim asıl tutkum. Kendi e-spor takımı olan B2G/DEV E-Sports’u kurdum ve takım yönetimiyle aktif olarak ilgileniyorum.</p>
         <p>Oyunları çok severim; bu ik alanı bir araya getiren projeler üzerinde çalışmayı çok seviyorum. Kod yazmak benim için sadece iş değil, aynı zamanda keyif aldığım bir sanat.</p>
       </div>
@@ -681,7 +682,7 @@ function adminLogin(){
     closeAdminModal();
     openPanelAndCloseSidebar('admin');
     renderAdminUsers(); renderAdminFeedback();
-    alert('Admin girişi başarılı. (Demo)');
+    alert('Admin girişi başarılı.');
   } else {
     document.getElementById('adminMsg').textContent = 'Hatalı admin bilgileri';
   }
@@ -716,7 +717,7 @@ function adminAddEvent(){
   const e = _get('events'); e.push({ id:'e'+Date.now(), name, date, winner:null }); _set('events', e);
   renderEvents();
   document.getElementById('eventName').value=''; document.getElementById('eventDate').value='';
-  alert('Event eklendi (demo).');
+  alert('Event eklendi');
 }
 function adminSendNotif(){
   const title = document.getElementById('notifTitle').value.trim();
@@ -725,7 +726,7 @@ function adminSendNotif(){
   const n = _get('notifications'); n.unshift({ id:'n'+Date.now(), title, body, createdAt: Date.now(), to:'all' }); _set('notifications', n);
   renderNotifications();
   document.getElementById('notifTitle').value=''; document.getElementById('notifBody').value='';
-  alert('Bildirim gönderildi (demo).');
+  alert('Bildirim gönderildi');
 }
 
 /* render admin lists on open */
@@ -740,4 +741,4 @@ function sendPasswordReset(){ const em = document.getElementById('pwdResetEmail'
 function escapeHtml(unsafe){ if(unsafe===undefined || unsafe===null) return ''; return String(unsafe).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;') }
 </script>
 </body>
-</html> 
+</html>
