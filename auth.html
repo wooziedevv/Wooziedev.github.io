@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <title>NexuForge - Giriş / Üyelik</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" href="https://r.resimlink.com/FrNusUEa.jpeg" type="image/png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div style="display:flex;align-items:center">
+    <div class="logo" onclick="location.href='index.html'">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NF Logo" style="height:40px;cursor:pointer;">
+        <path d="M20 180 L20 30 L60 30 L120 130 L120 30 L160 30 L160 180 L120 180 L120 80 L60 180 Z" fill="#ffffff"/>
+        <path d="M120 30 L190 30 L190 60 L160 60 L160 90 L190 90 L190 120 L160 120 L160 180 L120 180 Z" fill="#ffffff"/>
+      </svg>
+    </div>
+    <nav style="margin-left:12px">
+      <a href="index.html">Ana Sayfa</a>
+      <a href="products.html">Ürünler</a>
+      <a href="notifications.html">Bildirimler</a>
+      <a href="auth.html">Giriş / Üyelik</a>
+      <a href="about.html">Hakkımızda</a>
+      <a href="contact.html">İletişim</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+  </div>
+  <div id="headerUser" style="font-size:.9rem;color:#ccc"></div>
+</header>
+
+<main>
+  <h2>Üyelik Sistemi</h2>
+  <div id="authRow">
+    <div id="registerBox" class="box-card">
+      <h3>Kayıt Ol</h3>
+      <input id="regUsername" type="text" placeholder="Kullanıcı adı (eşsiz & temiz)">
+      <input id="regEmail" type="email" placeholder="E-mail">
+      <input id="regPassword" type="password" placeholder="Şifre">
+      <button onclick="register()">Kayıt Ol</button>
+    </div>
+
+    <div id="loginBox" class="box-card">
+      <h3>Giriş Yap</h3>
+      <input id="loginEmail" type="email" placeholder="E-mail">
+      <input id="loginPassword" type="password" placeholder="Şifre">
+      <button onclick="login()">Giriş</button>
+      <button onclick="sendPasswordReset()" class="btn-secondary" style="margin-left:8px">Şifremi Unuttum</button>
+    </div>
+  </div>
+
+  <div id="userBox" class="box-card" style="display:none;margin-top:10px;text-align:left">
+    <p>Hoşgeldin, <span id="userEmail"></span> (<span id="userName"></span>)</p>
+    <button onclick="logout()">Çıkış Yap</button>
+  </div>
+</main>
+
+<footer>&copy; 2025 NexuForge Tüm Hakları Gizlidir.</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

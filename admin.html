@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <title>NexuForge - Admin Panel</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" href="https://r.resimlink.com/FrNusUEa.jpeg" type="image/png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div style="display:flex;align-items:center">
+    <div class="logo" onclick="location.href='index.html'">...</div>
+    <nav style="margin-left:12px">
+      <a href="index.html">Ana Sayfa</a>
+      <a href="products.html">Ürünler</a>
+      <a href="notifications.html">Bildirimler</a>
+      <a href="auth.html">Giriş / Üyelik</a>
+      <a href="about.html">Hakkımızda</a>
+      <a href="contact.html">İletişim</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+  </div>
+  <div id="headerUser" style="font-size:.9rem;color:#ccc"></div>
+</header>
+
+<main>
+  <h2>Admin Panel</h2>
+  <p>Sadece demo: Kullanıcı adı: <b>wooziedev</b>, Şifre: <b>Ati1234</b></p>
+  <button onclick="openAdminModal()">Admin Girişi</button>
+
+  <div style="margin-top:20px;display:flex;gap:16px;flex-wrap:wrap;text-align:left">
+    <div style="flex:1;min-width:260px">
+      <h3>Kullanıcılar</h3>
+      <div id="adminUsersList" style="max-height:220px;overflow:auto;border:1px solid #222;padding:8px"></div>
+    </div>
+
+    <div style="flex:1;min-width:260px">
+      <h3>Geri Bildirimler</h3>
+      <div id="adminFeedbackList" style="max-height:220px;overflow:auto;border:1px solid #222;padding:8px"></div>
+    </div>
+  </div>
+
+  <div style="margin-top:20px;text-align:left">
+    <h3>Ürün Ekle</h3>
+    <input id="productName" class="input" placeholder="Ürün adı">
+    <input id="productStock" class="input" placeholder="Stok (adet)">
+    <input id="productPrice" class="input" placeholder="Fiyat (TL)">
+    <button onclick="adminAddProduct()">Ekle</button>
+    <h4 style="margin-top:10px">Mevcut Ürünler</h4>
+    <div id="adminProductList" class="item-list"></div>
+  </div>
+
+  <div style="margin-top:20px;text-align:left">
+    <h3>Scrim / Event Ekle</h3>
+    <input id="eventName" class="input" placeholder="Etkinlik adı">
+    <input id="eventDate" class="input" placeholder="Tarih / saat">
+    <button onclick="adminAddEvent()">Ekle</button>
+    <h4 style="margin-top:10px">Eventler</h4>
+    <div id="adminEventList" class="item-list"></div>
+  </div>
+
+  <div style="margin-top:20px;text-align:left">
+    <h3>Sistem Bildirimi Gönder</h3>
+    <input id="notifTitle" class="input" placeholder="Başlık">
+    <textarea id="notifBody" class="input" rows="3" placeholder="İleti"></textarea>
+    <button onclick="adminSendNotif()">Gönder</button>
+    <h4 style="margin-top:10px">Tüm Bildirimler</h4>
+    <div id="adminNotifList" class="item-list"></div>
+  </div>
+</main>
+
+<footer>&copy; 2025 NexuForge Tüm Hakları Gizlidir.</footer>
+
+<!-- Admin modal -->
+<div id="adminModal">
+  <div class="box">
+    <h3>Admin Girişi</h3>
+    <input id="adminUser" class="input" placeholder="Admin kullanıcı adı">
+    <input id="adminPass" type="password" class="input" placeholder="Admin şifre">
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button onclick="adminLogin()">Giriş Yap</button>
+      <button onclick="closeAdminModal()">Kapat</button>
+    </div>
+    <div id="adminMsg" style="margin-top:8px;color:#f88"></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
